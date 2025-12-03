@@ -50,7 +50,7 @@ def run_network_volume_diagnostics():
     print("=" * 70)
     print("NETWORK VOLUME DIAGNOSTICS (NETWORK_VOLUME_DEBUG=true)")
     print("=" * 70)
-    
+
     # Check extra_model_paths.yaml
     extra_model_paths_file = "/comfyui/extra_model_paths.yaml"
     print("\n[1] Checking extra_model_paths.yaml configuration...")
@@ -63,8 +63,10 @@ def run_network_volume_diagnostics():
                 print(f"      {line}")
     else:
         print(f"    ✗ NOT FOUND: {extra_model_paths_file}")
-        print("    This file is required for ComfyUI to find models on the network volume.")
-    
+        print(
+            "    This file is required for ComfyUI to find models on the network volume."
+        )
+
     # Check network volume mount
     runpod_volume = "/runpod-volume"
     print(f"\n[2] Checking network volume mount at {runpod_volume}...")
@@ -72,10 +74,12 @@ def run_network_volume_diagnostics():
         print(f"    ✓ MOUNTED: {runpod_volume}")
     else:
         print(f"    ✗ NOT MOUNTED: {runpod_volume}")
-        print("    Make sure you have attached a network volume to your serverless endpoint.")
+        print(
+            "    Make sure you have attached a network volume to your serverless endpoint."
+        )
         print("=" * 70)
         return
-    
+
     # Check directory structure
     print(f"\n[3] Checking directory structure...")
     models_dir = os.path.join(runpod_volume, "models")
@@ -88,11 +92,11 @@ def run_network_volume_diagnostics():
         print_expected_structure()
         print("=" * 70)
         return
-    
+
     # List model directories and their contents
     print(f"\n[4] Scanning model directories...")
     found_any_models = False
-    
+
     for model_type, extensions in MODEL_TYPES.items():
         model_path = os.path.join(models_dir, model_type)
         if os.path.isdir(model_path):
@@ -113,7 +117,7 @@ def run_network_volume_diagnostics():
             except Exception as e:
                 print(f"    {model_type}/: Error reading directory - {e}")
                 continue
-            
+
             if files:
                 print(f"\n    {model_type}/:")
                 for f in files:
@@ -122,7 +126,7 @@ def run_network_volume_diagnostics():
                 print(f"\n    {model_type}/: (empty)")
         else:
             print(f"\n    {model_type}/: (directory not found)")
-    
+
     # Summary
     print(f"\n[5] Summary")
     if found_any_models:
@@ -135,7 +139,7 @@ def run_network_volume_diagnostics():
         print("    - LoRAs: .safetensors, .pt")
         print("    - VAE: .safetensors, .pt, .bin")
         print("    - etc.")
-    
+
     print_expected_structure()
     print("=" * 70)
 
@@ -161,6 +165,7 @@ def format_size(size_bytes):
             return f"{size_bytes:.1f} {unit}"
         size_bytes /= 1024
     return f"{size_bytes:.1f} TB"
+
 
 # Time to wait between API check attempts in milliseconds
 COMFY_API_AVAILABLE_INTERVAL_MS = 50
