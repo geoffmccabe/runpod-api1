@@ -13,3 +13,4 @@ runpod_worker_comfy:
   unet: models/unet/
   text_encoders: models/text_encoders/
   VLM: models/VLM/
+  RMBG: models/RMBG/

@@ -49,6 +49,9 @@ ENV PATH="/opt/venv/bin:${PATH}"
 # Install comfy-cli + dependencies needed by it to install ComfyUI
 RUN uv pip install comfy-cli pip setuptools wheel
 
+# Cache bust for ComfyUI updates (change date to force rebuild)
+ARG COMFYUI_CACHE_BUST=2025-12-06
+
 # Install ComfyUI
 RUN if [ -n "${CUDA_VERSION_FOR_COMFY}" ]; then \
       /usr/bin/yes | comfy --workspace /comfyui install --version "${COMFYUI_VERSION}" --cuda-version "${CUDA_VERSION_FOR_COMFY}" --nvidia; \
@@ -92,6 +95,14 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 COPY scripts/provision_qwen.sh /scripts/provision_qwen.sh
 RUN chmod +x /scripts/provision_qwen.sh
 
+# Copy Z-Image provisioning script
+COPY scripts/provision_z_image.sh /scripts/provision_z_image.sh
+RUN chmod +x /scripts/provision_z_image.sh
+
+# Copy RMBG provisioning script
+COPY scripts/provision_rmbg.sh /scripts/provision_rmbg.sh
+RUN chmod +x /scripts/provision_rmbg.sh
+
 # Install Qwen2.5-VL captioning custom node
 # Requires transformers >= 4.49.0 (installed as dependency)
 # accelerate is needed for device_map="auto" in transformers
@@ -102,6 +113,12 @@ RUN comfy --workspace /comfyui node install https://github.com/MakkiShizu/ComfyU
 
 # Install Custom-Scripts (provides ShowText output node for text workflows)
 RUN comfy --workspace /comfyui node install https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git
+
+# Install RMBG background removal nodes (supports RMBG-2.0, BiRefNet, etc.)
+RUN comfy --workspace /comfyui node install https://github.com/1038lab/ComfyUI-RMBG.git
+
+# Install KJNodes for SaveImageWithAlpha (PNG with transparency support)
+RUN comfy --workspace /comfyui node install https://github.com/kijai/ComfyUI-KJNodes.git
 
 # Set the default command to run when starting the container
 CMD ["/start.sh"]
