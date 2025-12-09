@@ -3,8 +3,8 @@
 
 # Get remote file size from URL
 # Strategy:
-#   1. Try X-Linked-Size header (HuggingFace LFS) - available in initial 302 response
-#   2. If not present, follow redirects (-L) and get Content-Length from final response
+#   1. Try X-Linked-Size header (HuggingFace LFS) - available in initial response
+#   2. If not present, follow redirects and get Content-Length from final response
 #
 # Usage: get_remote_size "https://example.com/file.bin"
 get_remote_size() {
@@ -12,24 +12,19 @@ get_remote_size() {
     local size
     local headers
 
-    # First try: get headers without following redirects (for HF X-Linked-Size)
+    # First try: get headers (for HF X-Linked-Size)
     if [ -n "$HF_TOKEN" ]; then
-        headers=$(curl -sI -H "Accept-Encoding: identity" -H "Authorization: Bearer ${HF_TOKEN}" "$url" 2>/dev/null)
+        headers=$(wget --spider --header="Authorization: Bearer ${HF_TOKEN}" -S "$url" 2>&1)
     else
-        headers=$(curl -sI -H "Accept-Encoding: identity" "$url" 2>/dev/null)
+        headers=$(wget --spider -S "$url" 2>&1)
     fi
 
     # Try X-Linked-Size first (HuggingFace LFS)
     # Use ^ anchor to avoid matching access-control-expose-headers which lists X-Linked-Size
-    size=$(echo "$headers" | grep -i "^x-linked-size:" | awk '{print $2}' | tr -d '\r')
+    size=$(echo "$headers" | grep -i "^  x-linked-size:" | awk '{print $2}' | tr -d '\r')
 
-    # Fallback: follow redirects and get Content-Length from final response
+    # Fallback: get Content-Length from final response
     if [ -z "$size" ]; then
-        if [ -n "$HF_TOKEN" ]; then
-            headers=$(curl -sLI -H "Accept-Encoding: identity" -H "Authorization: Bearer ${HF_TOKEN}" "$url" 2>/dev/null)
-        else
-            headers=$(curl -sLI -H "Accept-Encoding: identity" "$url" 2>/dev/null)
-        fi
         size=$(echo "$headers" | grep -i "content-length" | tail -1 | awk '{print $2}' | tr -d '\r')
     fi
 
