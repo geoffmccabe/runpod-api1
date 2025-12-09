@@ -110,12 +110,18 @@ RUN comfy --workspace /comfyui node install https://github.com/1038lab/ComfyUI-R
 RUN comfy --workspace /comfyui node install https://github.com/kijai/ComfyUI-KJNodes.git
 
 # Install PuLID-FLUX for character identity preservation in scene assembly
-# Install all dependencies from requirements.txt: facexlib, insightface, onnxruntime[-gpu], ftfy, timm
-RUN comfy --workspace /comfyui node install https://github.com/balazik/ComfyUI-PuLID-Flux.git \
-    && uv pip install facexlib insightface onnxruntime onnxruntime-gpu ftfy timm
-
 # Install unzip for InsightFace model extraction at runtime
 RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
+
+# Install PuLID node (clone only, dependencies installed separately)
+RUN comfy --workspace /comfyui node install https://github.com/balazik/ComfyUI-PuLID-Flux.git
+
+# Install PuLID dependencies using pip (not uv - has issues with GPU packages)
+# Use pre-built wheel for insightface (compiled against numpy 1.x)
+# IMPORTANT: Install numpy<2 LAST to prevent dependency upgrades to numpy 2.x
+RUN pip install https://huggingface.co/AlienMachineAI/insightface-0.7.3-cp312-cp312-linux_x86_64.whl/resolve/main/insightface-0.7.3-cp312-cp312-linux_x86_64.whl \
+    && pip install facexlib onnxruntime-gpu ftfy timm \
+    && pip install "numpy<2"
 
 # Copy provisioning scripts (after custom nodes for better layer caching)
 # These change more frequently than custom nodes
