@@ -1,0 +1,76 @@
+{
+  "input": {
+    "workflow": {
+      "1": {
+        "inputs": {
+          "unet_name": "Qwen-Image_fp8.safetensors"
+        },
+        "class_type": "UNETLoader"
+      },
+      "2": {
+        "inputs": {
+          "clip_name": "qwen_image_text_encoder.safetensors",
+          "type": "qwen_image"
+        },
+        "class_type": "CLIPLoader"
+      },
+      "3": {
+        "inputs": {
+          "vae_name": "qwen_image_vae.safetensors"
+        },
+        "class_type": "VAELoader"
+      },
+      "4": {
+        "inputs": {
+          "text": "A beautiful sunset over mountains, highly detailed, 8k",
+          "clip": ["2", 0]
+        },
+        "class_type": "CLIPTextEncode"
+      },
+      "5": {
+        "inputs": {
+          "text": "blurry, low quality, distorted",
+          "clip": ["2", 0]
+        },
+        "class_type": "CLIPTextEncode"
+      },
+      "6": {
+        "inputs": {
+          "width": 1024,
+          "height": 1024,
+          "batch_size": 1
+        },
+        "class_type": "EmptyLatentImage"
+      },
+      "7": {
+        "inputs": {
+          "seed": 42,
+          "steps": 20,
+          "cfg": 7.0,
+          "sampler_name": "euler",
+          "scheduler": "normal",
+          "denoise": 1.0,
+          "model": ["1", 0],
+          "positive": ["4", 0],
+          "negative": ["5", 0],
+          "latent_image": ["6", 0]
+        },
+        "class_type": "KSampler"
+      },
+      "8": {
+        "inputs": {
+          "samples": ["7", 0],
+          "vae": ["3", 0]
+        },
+        "class_type": "VAEDecode"
+      },
+      "9": {
+        "inputs": {
+          "filename_prefix": "qwen_output",
+          "images": ["8", 0]
+        },
+        "class_type": "SaveImage"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "input": {
+    "workflow": {
+      "1": {
+        "inputs": {
+          "image": "input.png",
+          "upload": "image"
+        },
+        "class_type": "LoadImage"
+      },
+      "2": {
+        "inputs": {
+          "model": "Qwen/Qwen2.5-VL-7B-Instruct",
+          "quantization": "8bit",
+          "attention": "sdpa"
+        },
+        "class_type": "DownloadAndLoadQwen2_5_VLModel"
+      },
+      "3": {
+        "inputs": {
+          "text": "Describe this image in detail. Include the main subjects, colors, composition, mood, and any notable elements.",
+          "Qwen2_5_VL_model": ["2", 0],
+          "image": ["1", 0],
+          "video_decode_method": "torchvision",
+          "max_new_tokens": 256,
+          "min_pixels": 256,
+          "max_pixels": 1280,
+          "total_pixels": 1003520,
+          "seed": 42
+        },
+        "class_type": "Qwen2_5_VL_Run"
+      }
+    },
+    "images": [
+      {
+        "name": "input.png",
+        "image": ""
+      }
+    ]
+  }
+}
