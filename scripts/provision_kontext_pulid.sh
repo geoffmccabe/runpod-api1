@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 set -e
 
-# Flux Kontext + PuLID Model Provisioning Script
+# Flux Kontext + InfiniteYou Model Provisioning Script
 # Downloads required models to Network Volume if not present
-# Total: ~25GB
+# InfiniteYou auto-downloads its own models from ByteDance/InfiniteYou
+# Total: ~20GB
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/lib/download_utils.sh"
 
 VOLUME_PATH="${RUNPOD_VOLUME_PATH:-/runpod-volume}"
 MODELS_DIR="${VOLUME_PATH}/models"
-LOG_PREFIX="provision-kontext-pulid"
+LOG_PREFIX="provision-kontext"
 
 log() {
     echo "[${LOG_PREFIX}] $(date '+%Y-%m-%d %H:%M:%S') $1"
@@ -38,7 +39,7 @@ download_insightface() {
 }
 
 main() {
-    log "Starting Flux Kontext + PuLID model provisioning"
+    log "Starting Flux Kontext model provisioning"
     log "Volume path: $VOLUME_PATH"
     log "Models directory: $MODELS_DIR"
 
@@ -49,31 +50,27 @@ main() {
         exit 0
     fi
 
+    # Cleanup: Remove deprecated PuLID models (replaced by InfiniteYou)
+    if [ -d "${MODELS_DIR}/pulid" ]; then
+        log "Removing deprecated PuLID models..."
+        rm -rf "${MODELS_DIR}/pulid"
+    fi
+    if [ -f "${MODELS_DIR}/clip/EVA02_CLIP_L_336_psz14_s6B.pt" ]; then
+        log "Removing deprecated EVA-CLIP model..."
+        rm -f "${MODELS_DIR}/clip/EVA02_CLIP_L_336_psz14_s6B.pt"
+    fi
+
     # Create directories
     mkdir -p "${MODELS_DIR}/diffusion_models"
-    mkdir -p "${MODELS_DIR}/pulid"
     mkdir -p "${MODELS_DIR}/clip"
     mkdir -p "${MODELS_DIR}/insightface/models"
+    mkdir -p "${MODELS_DIR}/infinite_you"
 
     # Flux Kontext diffusion model (~12GB)
     download_model \
         "https://huggingface.co/Comfy-Org/flux1-kontext-dev_ComfyUI/resolve/main/split_files/diffusion_models/flux1-dev-kontext_fp8_scaled.safetensors" \
         "${MODELS_DIR}/diffusion_models/flux1-dev-kontext_fp8_scaled.safetensors" \
         "Flux Kontext FP8 (~12GB)" \
-        "$LOG_PREFIX"
-
-    # PuLID model (~1.14GB)
-    download_model \
-        "https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors" \
-        "${MODELS_DIR}/pulid/pulid_flux_v0.9.1.safetensors" \
-        "PuLID FLUX v0.9.1 (~1.14GB)" \
-        "$LOG_PREFIX"
-
-    # EVA-CLIP vision encoder (backup - PulidFluxEvaClipLoader auto-downloads to HF cache)
-    download_model \
-        "https://huggingface.co/QuanSun/EVA-CLIP/resolve/main/EVA02_CLIP_L_336_psz14_s6B.pt" \
-        "${MODELS_DIR}/clip/EVA02_CLIP_L_336_psz14_s6B.pt" \
-        "EVA-CLIP L/14-336 (backup)" \
         "$LOG_PREFIX"
 
     # CLIP-L text encoder
@@ -102,14 +99,17 @@ main() {
         log "FLUX VAE already exists (shared with other models)"
     fi
 
-    # InsightFace antelopev2 models (for face detection)
+    # InsightFace antelopev2 models (for face detection - used by InfiniteYou)
     download_insightface
+
+    # Note: InfiniteYou models (InfuseNet, image_proj) auto-download from
+    # ByteDance/InfiniteYou on first use to models/infinite_you/
 
     log "Provisioning complete"
 
     # List downloaded models
-    log "Kontext + PuLID models in volume:"
-    find "$MODELS_DIR" -type f \( -name "*kontext*" -o -name "*pulid*" -o -name "*EVA*" -o -name "clip_l*" -o -name "t5xxl*" \) -exec ls -lh {} \; 2>/dev/null || true
+    log "Kontext models in volume:"
+    find "$MODELS_DIR" -type f \( -name "*kontext*" -o -name "clip_l*" -o -name "t5xxl*" \) -exec ls -lh {} \; 2>/dev/null || true
 }
 
 main "$@"

@@ -21,6 +21,28 @@ if [ -d "${RUNPOD_VOLUME_PATH:-/runpod-volume}" ]; then
         ln -sf "$VLM_VOLUME_PATH" "$VLM_COMFYUI_PATH"
         echo "worker-comfyui: VLM models symlinked to $VLM_VOLUME_PATH"
     fi
+
+    # Symlink InsightFace models directory to network volume
+    # InfiniteYou uses /comfyui/models/insightface/models/antelopev2/ for face detection
+    INSIGHTFACE_VOLUME_PATH="${RUNPOD_VOLUME_PATH:-/runpod-volume}/models/insightface"
+    INSIGHTFACE_COMFYUI_PATH="/comfyui/models/insightface"
+    mkdir -p "$INSIGHTFACE_VOLUME_PATH"
+    if [ ! -L "$INSIGHTFACE_COMFYUI_PATH" ]; then
+        rm -rf "$INSIGHTFACE_COMFYUI_PATH"
+        ln -sf "$INSIGHTFACE_VOLUME_PATH" "$INSIGHTFACE_COMFYUI_PATH"
+        echo "worker-comfyui: InsightFace models symlinked to $INSIGHTFACE_VOLUME_PATH"
+    fi
+
+    # Symlink InfiniteYou models directory to network volume
+    # Stores InfuseNet and image_proj models from ByteDance/InfiniteYou
+    INFINITEYOU_VOLUME_PATH="${RUNPOD_VOLUME_PATH:-/runpod-volume}/models/infinite_you"
+    INFINITEYOU_COMFYUI_PATH="/comfyui/models/infinite_you"
+    mkdir -p "$INFINITEYOU_VOLUME_PATH"
+    if [ ! -L "$INFINITEYOU_COMFYUI_PATH" ]; then
+        rm -rf "$INFINITEYOU_COMFYUI_PATH"
+        ln -sf "$INFINITEYOU_VOLUME_PATH" "$INFINITEYOU_COMFYUI_PATH"
+        echo "worker-comfyui: InfiniteYou models symlinked to $INFINITEYOU_VOLUME_PATH"
+    fi
 fi
 
 # Ensure ComfyUI-Manager runs in offline network mode inside the container

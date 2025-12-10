@@ -109,18 +109,19 @@ RUN comfy --workspace /comfyui node install https://github.com/1038lab/ComfyUI-R
 # Install KJNodes for SaveImageWithAlpha (PNG with transparency support)
 RUN comfy --workspace /comfyui node install https://github.com/kijai/ComfyUI-KJNodes.git
 
-# Install PuLID-FLUX for character identity preservation in scene assembly
+# Install InfiniteYou for character identity preservation in scene assembly
+# ByteDance's ICCV 2025 implementation - actively maintained, FLUX-native
 # Install unzip for InsightFace model extraction at runtime
 RUN apt-get update && apt-get install -y unzip && rm -rf /var/lib/apt/lists/*
 
-# Install PuLID node (clone only, dependencies installed separately)
-RUN comfy --workspace /comfyui node install https://github.com/balazik/ComfyUI-PuLID-Flux.git
+# Install InfiniteYou node (auto-downloads models from HuggingFace on first use)
+RUN comfy --workspace /comfyui node install https://github.com/bytedance/ComfyUI_InfiniteYou.git
 
-# Install PuLID dependencies using pip (not uv - has issues with GPU packages)
+# Install InfiniteYou dependencies using pip (not uv - has issues with GPU packages)
 # Use pre-built wheel for insightface (compiled against numpy 1.x)
 # IMPORTANT: Install numpy<2 LAST to prevent dependency upgrades to numpy 2.x
 RUN pip install https://huggingface.co/AlienMachineAI/insightface-0.7.3-cp312-cp312-linux_x86_64.whl/resolve/main/insightface-0.7.3-cp312-cp312-linux_x86_64.whl \
-    && pip install facexlib onnxruntime-gpu ftfy timm \
+    && pip install facexlib onnxruntime-gpu opencv-python \
     && pip install "numpy<2"
 
 # Copy provisioning scripts (after custom nodes for better layer caching)
