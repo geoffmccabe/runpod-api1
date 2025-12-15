@@ -1,6 +1,6 @@
-# runpod-worker-comfy (Qwen-Image Fork)
+# runpod-worker-comfy
 
-> [ComfyUI](https://github.com/comfyanonymous/ComfyUI) with Qwen-Image FP8 as a serverless API on [RunPod](https://www.runpod.io/)
+> [ComfyUI](https://github.com/comfyanonymous/ComfyUI) as a serverless API on [RunPod](https://www.runpod.io/)
 
 ## Quick Start
 
@@ -14,19 +14,6 @@ bin/push dev
 # Test locally
 bin/test-local
 ```
-
-## Qwen-Image Setup
-
-This fork includes automatic provisioning for Qwen-Image FP8 model.
-
-**Models downloaded on first startup (~28GB total):**
-- `Qwen-Image_fp8.safetensors` (20GB) - Main diffusion model
-- `qwen_image_text_encoder.safetensors` (7GB) - Text encoder
-- `qwen_image_vae.safetensors` (300MB) - VAE
-
-**Requirements:**
-- RunPod Network Volume (50GB minimum)
-- RTX 4090 or equivalent (24GB VRAM)
 
 ## Qwen2.5-VL Captioning
 

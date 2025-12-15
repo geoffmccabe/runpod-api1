@@ -59,10 +59,10 @@ fi
 # Ensure ComfyUI-Manager runs in offline network mode inside the container
 comfy-manager-set-mode offline || echo "worker-comfyui - Could not set ComfyUI-Manager network_mode" >&2
 
-# Provision Qwen-Image models if not present
-if [ -f /scripts/provision_qwen.sh ]; then
-    echo "worker-comfyui: Running Qwen-Image model provisioning"
-    /scripts/provision_qwen.sh
+# Set up VLM directories for Qwen2.5-VL captioning
+if [ -f /scripts/provision_vlm.sh ]; then
+    echo "worker-comfyui: Setting up VLM directories"
+    /scripts/provision_vlm.sh
 fi
 
 # Provision Z-Image models if not present

@@ -175,13 +175,6 @@ RUN if [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
       wget -q -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
     fi
 
-RUN if [ "$MODEL_TYPE" = "qwen-image" ]; then \
-      mkdir -p models/diffusion_models models/text_encoders && \
-      wget -q -O models/diffusion_models/qwen_image_fp8_e4m3fn.safetensors https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_fp8_e4m3fn.safetensors && \
-      wget -q -O models/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors && \
-      wget -q -O models/vae/qwen_image_vae.safetensors https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors; \
-    fi
-
 # Stage 3: Final image
 FROM base AS final
 
