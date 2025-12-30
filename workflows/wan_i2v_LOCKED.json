@@ -1,0 +1,38 @@
+{
+  "id": "b246537d-c9a9-412b-b033-5c72a4fc97a8",
+  "revision": 0,
+  "last_node_id": 101,
+  "last_link_id": 141,
+  "nodes": [
+    {
+      "id": 46,
+      "type": "WanVideoTextEmbedBridge",
+      "pos": [
+        768.0983276367188,
+        914.539794921875
+      ],
+      "size": [
+        315,
+        46
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 2,
+      "inputs": [
+        {
+          "localized_name": "positive",
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 54
+        },
+        {
+          "localized_name": "negative",
+          "name": "negative",
+          "shape": 7,
+          "type": "CONDITIONING",
+          "link": 55
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name"_
