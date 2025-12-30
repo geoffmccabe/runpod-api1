@@ -74,7 +74,7 @@ WORKDIR /
 RUN uv pip install runpod requests websocket-client
 
 # Add application code and scripts
-ADD src/start.sh src/network_volume.py handler.py test_input.json ./
+ADD src/start.sh src/network_volume.py src/handler.py test_input.json ./
 RUN chmod +x /start.sh
 
 # Add script to install custom nodes
@@ -89,7 +89,7 @@ COPY scripts/comfy-manager-set-mode.sh /usr/local/bin/comfy-manager-set-mode
 RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 # Set the default command to run when starting the container
-ENTRYPOINT ["python3", "-u", "src/handler.py"]
+ENTRYPOINT ["python3", "-u", "/handler.py"]
 
 # Stage 2: Download models
 FROM base AS downloader
