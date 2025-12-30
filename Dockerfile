@@ -89,7 +89,6 @@ COPY scripts/comfy-manager-set-mode.sh /usr/local/bin/comfy-manager-set-mode
 RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 # Set the default command to run when starting the container
-CMD ["python3", "-u", "src/handler.py"]
 ENTRYPOINT ["python3", "-u", "src/handler.py"]
 
 # Stage 2: Download models
