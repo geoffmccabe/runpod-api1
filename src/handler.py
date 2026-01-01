@@ -437,24 +437,11 @@ def compute_internal_dims(
 
 
 def handler(job: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    RunPod handler.
-    Input expects:
-      - input.image_base64  (required)
-      - input.prompt, input.negative_prompt
-      - input.width, input.height
-      - input.fps, input.seconds
-      - input.seed, input.steps, input.cfg
-      - input.enforce_aspect_5x7 (default True)
-      - input.postprocess_exact (default True)
-      - input.loras (optional; currently ignored, reserved for next step)
-    """
     inp = job.get("input", {}) or {}
 
-    # Basic input validation
-    image_b64 = inp.get("image_base64") or inp.get("image")
-    if not image_b64:
-        return {"error": "Missing input.image_base64 (base64-encoded image)."}
+    mode = (inp.get("mode") or "i2v").lower()
+    if mode not in ("i2v", "t2v"):
+        return {"error": "Invalid mode. Use 'i2v' or 't2v'."}
 
     prompt = inp.get("prompt", DEFAULT_PROMPT)
     negative_prompt = inp.get("negative_prompt", DEFAULT_NEG_PROMPT)
@@ -469,8 +456,7 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     if seconds <= 0:
         seconds = DEFAULT_SECONDS
 
-    num_frames = int(round(fps * seconds))
-    num_frames = max(1, num_frames)
+    num_frames = max(1, int(round(fps * seconds)))
 
     seed = int(inp.get("seed", 47) or 47)
     steps = int(inp.get("steps", 30) or 30)
@@ -479,29 +465,38 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     enforce_aspect_5x7 = bool(inp.get("enforce_aspect_5x7", True))
     postprocess_exact = bool(inp.get("postprocess_exact", True))
 
-    # LoRAs reserved (we will wire these into the graph once you confirm your LoRA loader strategy)
-    loras = inp.get("loras")
-    if loras:
-        _log("NOTE: input.loras provided but currently ignored (LoRA nodes not wired yet).")
-
     ensure_dirs()
     wait_for_comfyui_ready()
 
-    # Decode and preprocess input image
-    img = decode_base64_image(image_b64)
-
-    if enforce_aspect_5x7:
-        img = center_crop_to_aspect(img, 5, 7)
-
-    # Compute internal dims (multiples of 16)
+    # Compute internal dims
     w_int, h_int = compute_internal_dims(req_w, req_h, enforce_aspect_5x7=enforce_aspect_5x7)
 
-    # Save input for ComfyUI
-    in_name = f"api_input_{uuid.uuid4().hex}.png"
-    save_input_image_for_comfy(img, in_name)
+    input_image_filename = None
 
-    # Load and parameterize workflow
+    if mode == "i2v":
+        image_b64 = inp.get("image_base64") or inp.get("image")
+        if not image_b64:
+            return {"error": "Missing input.image_base64 for i2v mode."}
+
+        img = decode_base64_image(image_b64)
+
+        if enforce_aspect_5x7:
+            img = center_crop_to_aspect(img, 5, 7)
+
+        in_name = f"api_input_{uuid.uuid4().hex}.png"
+        save_input_image_for_comfy(img, in_name)
+        input_image_filename = in_name
+
+    # Load workflow
     wf = load_workflow()
+    nodes = workflow_nodes_by_id(wf)
+
+    # If T2V, disable LoadImage node input
+    if mode == "t2v":
+        n_load = nodes.get(NODE_LOAD_IMAGE)
+        if n_load and "widgets_values" in n_load:
+            n_load["widgets_values"][0] = ""
+
     wf = set_workflow_params(
         wf=wf,
         prompt=prompt,
@@ -513,30 +508,39 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
         height_internal=h_int,
         num_frames=num_frames,
         fps=fps,
-        input_image_filename=in_name,
+        input_image_filename=input_image_filename or "",
     )
 
-    # Submit, wait, fetch output mp4
     prompt_id = submit_workflow_to_comfy(wf)
     hist_entry = wait_for_prompt_done(prompt_id)
 
     filename, subfolder, ftype = find_video_output_from_history(hist_entry)
     mp4_bytes = download_comfy_file(filename, subfolder, ftype)
 
-    # Postprocess to exact requested dimensions if requested (even if not divisible by 16)
     if postprocess_exact and (req_w != w_int or req_h != h_int):
         mp4_bytes = ffmpeg_scale_crop_to_exact(mp4_bytes, req_w, req_h)
 
-    # Return base64 mp4
     out_b64 = base64.b64encode(mp4_bytes).decode("utf-8")
 
     return {
+        "mode": mode,
         "prompt_id": prompt_id,
-        "requested": {"width": req_w, "height": req_h, "fps": fps, "seconds": seconds, "frames": num_frames},
-        "internal": {"width": w_int, "height": h_int, "multiple": INTERNAL_MULTIPLE},
+        "requested": {
+            "width": req_w,
+            "height": req_h,
+            "fps": fps,
+            "seconds": seconds,
+            "frames": num_frames,
+        },
+        "internal": {
+            "width": w_int,
+            "height": h_int,
+            "multiple": INTERNAL_MULTIPLE,
+        },
         "video_base64": out_b64,
-        "video_mime": "video/mp4"
+        "video_mime": "video/mp4",
     }
+
 
 
 runpod.serverless.start({"handler": handler})
