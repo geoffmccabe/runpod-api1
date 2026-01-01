@@ -439,6 +439,50 @@ def compute_internal_dims(
 def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     inp = job.get("input", {}) or {}
 
+    # 1) LoRA listing fast-path
+    action = (inp.get("action") or "").lower().strip()
+    if action == "list_loras":
+        loras = []
+        # Use the sidecar JSONs you just generated
+        roots = [
+            "/workspace/wan-storage/models/lora-video",
+            "/workspace/wan-storage/models/lora-image",
+            "/workspace/models/lora-video",  # in case your container uses this path
+            "/workspace/models/lora-image",
+        ]
+        seen = set()
+        for root in roots:
+            if not os.path.isdir(root):
+                continue
+            for dirpath, _, files in os.walk(root):
+                for f in files:
+                    if not f.endswith(".json"):
+                        continue
+                    fp = os.path.join(dirpath, f)
+                    if fp in seen:
+                        continue
+                    seen.add(fp)
+                    try:
+                        with open(fp, "r", encoding="utf-8") as jf:
+                            data = json.load(jf)
+                        # Only include records that look like LoRA metadata
+                        if isinstance(data, dict) and data.get("alias") and data.get("category"):
+                            loras.append({
+                                "alias": data.get("alias"),
+                                "category": data.get("category"),
+                                "is_nsfw": bool(data.get("is_nsfw", False)),
+                                "default_weight": float(data.get("default_weight", 1.0)),
+                                "min_weight": float(data.get("min_weight", 0.0)),
+                                "max_weight": float(data.get("max_weight", 2.0)),
+                            })
+                    except Exception:
+                        continue
+
+        # Stable order for UI
+        loras.sort(key=lambda x: (x["category"], x["alias"]))
+        return {"loras": loras}
+
+    # 2) Video modes
     mode = (inp.get("mode") or "i2v").lower()
     if mode not in ("i2v", "t2v"):
         return {"error": "Invalid mode. Use 'i2v' or 't2v'."}
@@ -468,10 +512,9 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     ensure_dirs()
     wait_for_comfyui_ready()
 
-    # Compute internal dims
     w_int, h_int = compute_internal_dims(req_w, req_h, enforce_aspect_5x7=enforce_aspect_5x7)
 
-    input_image_filename = None
+    input_image_filename = ""
 
     if mode == "i2v":
         image_b64 = inp.get("image_base64") or inp.get("image")
@@ -479,7 +522,6 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
             return {"error": "Missing input.image_base64 for i2v mode."}
 
         img = decode_base64_image(image_b64)
-
         if enforce_aspect_5x7:
             img = center_crop_to_aspect(img, 5, 7)
 
@@ -487,14 +529,13 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
         save_input_image_for_comfy(img, in_name)
         input_image_filename = in_name
 
-    # Load workflow
     wf = load_workflow()
     nodes = workflow_nodes_by_id(wf)
 
-    # If T2V, disable LoadImage node input
+    # If t2v, blank out LoadImage filename to avoid a missing-file error
     if mode == "t2v":
         n_load = nodes.get(NODE_LOAD_IMAGE)
-        if n_load and "widgets_values" in n_load:
+        if n_load and "widgets_values" in n_load and n_load["widgets_values"]:
             n_load["widgets_values"][0] = ""
 
     wf = set_workflow_params(
@@ -508,7 +549,7 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
         height_internal=h_int,
         num_frames=num_frames,
         fps=fps,
-        input_image_filename=input_image_filename or "",
+        input_image_filename=input_image_filename,
     )
 
     prompt_id = submit_workflow_to_comfy(wf)
@@ -525,22 +566,11 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "mode": mode,
         "prompt_id": prompt_id,
-        "requested": {
-            "width": req_w,
-            "height": req_h,
-            "fps": fps,
-            "seconds": seconds,
-            "frames": num_frames,
-        },
-        "internal": {
-            "width": w_int,
-            "height": h_int,
-            "multiple": INTERNAL_MULTIPLE,
-        },
+        "requested": {"width": req_w, "height": req_h, "fps": fps, "seconds": seconds, "frames": num_frames},
+        "internal": {"width": w_int, "height": h_int, "multiple": INTERNAL_MULTIPLE},
         "video_base64": out_b64,
         "video_mime": "video/mp4",
     }
-
 
 
 runpod.serverless.start({"handler": handler})
