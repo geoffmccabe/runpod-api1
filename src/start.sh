@@ -1,26 +1,18 @@
 #!/usr/bin/env bash
+set -e
 
-# Use libtcmalloc for better memory management
-TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
-export LD_PRELOAD="${TCMALLOC}"
+# Canonical paths for this image
+export COMFYUI_DIR="${COMFYUI_DIR:-/comfyui}"
+export COMFY_HOST="${COMFY_HOST:-127.0.0.1}"
+export COMFY_PORT="${COMFY_PORT:-8188}"
 
-# Ensure ComfyUI-Manager runs in offline network mode inside the container
-comfy-manager-set-mode offline || echo "worker-comfyui - Could not set ComfyUI-Manager network_mode" >&2
+# Ensure handler and any scripts use the venv python
+PY="/opt/venv/bin/python"
 
-echo "worker-comfyui: Starting ComfyUI"
+# Start ComfyUI in the background
+cd "$COMFYUI_DIR"
+$PY main.py --listen 0.0.0.0 --port "$COMFY_PORT" > /tmp/comfyui.log 2>&1 &
 
-# Allow operators to tweak verbosity; default is DEBUG.
-: "${COMFY_LOG_LEVEL:=DEBUG}"
-
-# Serve the API and don't shutdown the container
-if [ "$SERVE_API_LOCALLY" == "true" ]; then
-    python -u /comfyui/main.py --disable-auto-launch --disable-metadata --listen --verbose "${COMFY_LOG_LEVEL}" --log-stdout &
-
-    echo "worker-comfyui: Starting RunPod Handler"
-    python -u /handler.py --rp_serve_api --rp_api_host=0.0.0.0
-else
-    python -u /comfyui/main.py --disable-auto-launch --disable-metadata --verbose "${COMFY_LOG_LEVEL}" --log-stdout &
-
-    echo "worker-comfyui: Starting RunPod Handler"
-    python -u /handler.py
-fi
+# Now start the RunPod handler (foreground)
+cd /
+exec $PY -u /handler.py
