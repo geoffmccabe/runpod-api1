@@ -5,7 +5,7 @@ import time
 import uuid
 import base64
 import subprocess
-from typing import Any, Dict, Tuple, Optional, List
+from typing import Any, Dict, Tuple
 
 import requests
 import runpod
@@ -16,14 +16,13 @@ COMFY_HOST = os.environ.get("COMFY_HOST", "127.0.0.1")
 COMFY_PORT = int(os.environ.get("COMFY_PORT", "8188"))
 COMFY_HTTP = f"http://{COMFY_HOST}:{COMFY_PORT}"
 
-# IMPORTANT: In this image, ComfyUI is installed at /comfyui
-COMFYUI_DIR = os.environ.get("COMFYUI_DIR", "/comfyui")
+COMFYUI_DIR = os.environ.get("COMFYUI_DIR", "/workspace/ComfyUI")
 COMFY_INPUT_DIR = os.environ.get("COMFY_INPUT_DIR", os.path.join(COMFYUI_DIR, "input"))
 COMFY_OUTPUT_DIR = os.environ.get("COMFY_OUTPUT_DIR", os.path.join(COMFYUI_DIR, "output"))
 COMFY_TEMP_DIR = os.environ.get("COMFY_TEMP_DIR", os.path.join(COMFYUI_DIR, "temp"))
 
-# Workflow is copied into the image at /workflows
-WORKFLOW_PATH = os.environ.get("WORKFLOW_PATH", "/workflows/wan_i2v_LOCKED.json")
+WORKFLOW_PATH = os.environ.get("WORKFLOW_PATH", "/workspace/workflows/wan_i2v_LOCKED.json")
+REPO_WORKFLOW_PATH = os.environ.get("REPO_WORKFLOW_PATH", "/workspace/runpod-api1/workflows/wan_i2v_LOCKED.json")
 
 DEFAULT_PROMPT = "cinematic motion, subtle camera movement, high quality"
 DEFAULT_NEG_PROMPT = "low quality, blurry, watermark, text, logo"
@@ -69,19 +68,26 @@ LORA_SCAN_ROOTS = [
     "/workspace/models/lora-image",
 ]
 
+
 def _log(msg: str) -> None:
     print(msg, flush=True)
+
 
 def ensure_dirs() -> None:
     os.makedirs(COMFY_INPUT_DIR, exist_ok=True)
     os.makedirs(COMFY_OUTPUT_DIR, exist_ok=True)
     os.makedirs(COMFY_TEMP_DIR, exist_ok=True)
 
+
 def comfy_get(path: str, **params) -> requests.Response:
-    return requests.get(f"{COMFY_HTTP}{path}", params=params, timeout=60)
+    url = f"{COMFY_HTTP}{path}"
+    return requests.get(url, params=params, timeout=60)
+
 
 def comfy_post(path: str, json_body: Dict[str, Any]) -> requests.Response:
-    return requests.post(f"{COMFY_HTTP}{path}", json=json_body, timeout=60)
+    url = f"{COMFY_HTTP}{path}"
+    return requests.post(url, json=json_body, timeout=60)
+
 
 def wait_for_comfyui_ready(max_wait_s: int = 180) -> None:
     t0 = time.time()
@@ -92,25 +98,37 @@ def wait_for_comfyui_ready(max_wait_s: int = 180) -> None:
                 return
         except Exception:
             pass
+
         if time.time() - t0 > max_wait_s:
             raise RuntimeError("ComfyUI did not become ready in time.")
         time.sleep(1.0)
 
+
 def load_workflow() -> Dict[str, Any]:
-    if not os.path.exists(WORKFLOW_PATH):
-        raise FileNotFoundError(f"Workflow not found at {WORKFLOW_PATH}")
-    with open(WORKFLOW_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
+    candidates = [
+        WORKFLOW_PATH,
+        REPO_WORKFLOW_PATH,
+        "/workspace/workflows/wan_i2v_LOCKED.json",
+        "/workspace/i2v-workflows/wan_i2v_LOCKED.json",
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                return json.load(f)
+    raise FileNotFoundError(f"Could not find wan_i2v_LOCKED.json. Tried: {candidates}")
+
 
 def workflow_nodes_by_id(wf: Dict[str, Any]) -> Dict[int, Dict[str, Any]]:
-    out = {}
+    out: Dict[int, Dict[str, Any]] = {}
     for n in wf.get("nodes", []):
         out[int(n["id"])] = n
     return out
 
+
 def decode_base64_image(image_b64: str) -> Image.Image:
     raw = base64.b64decode(image_b64)
     return Image.open(io.BytesIO(raw)).convert("RGB")
+
 
 def save_input_image_for_comfy(img: Image.Image, filename: str) -> str:
     ensure_dirs()
@@ -118,8 +136,12 @@ def save_input_image_for_comfy(img: Image.Image, filename: str) -> str:
     img.save(path, format="PNG", optimize=True)
     return filename
 
+
 def round_to_multiple(x: int, m: int) -> int:
+    if m <= 1:
+        return max(1, x)
     return max(m, int(round(x / m) * m))
+
 
 def compute_internal_dims(req_w: int, req_h: int) -> Tuple[int, int]:
     if req_w <= 0 or req_h <= 0:
@@ -127,6 +149,7 @@ def compute_internal_dims(req_w: int, req_h: int) -> Tuple[int, int]:
     w_int = round_to_multiple(req_w, INTERNAL_MULTIPLE)
     h_int = round_to_multiple(req_h, INTERNAL_MULTIPLE)
     return w_int, h_int
+
 
 def set_workflow_params(
     wf: Dict[str, Any],
@@ -143,7 +166,6 @@ def set_workflow_params(
 ) -> Dict[str, Any]:
     nodes = workflow_nodes_by_id(wf)
 
-    # Text prompts
     n_text = nodes.get(NODE_TEXT_ENCODE)
     if n_text and "widgets_values" in n_text:
         wv = list(n_text["widgets_values"])
@@ -153,7 +175,6 @@ def set_workflow_params(
             wv[TEXT_IDX_NEG] = negative_prompt
         n_text["widgets_values"] = wv
 
-    # LoadImage filename
     n_load = nodes.get(NODE_LOAD_IMAGE)
     if n_load and "widgets_values" in n_load:
         wv = list(n_load["widgets_values"])
@@ -161,7 +182,6 @@ def set_workflow_params(
             wv[0] = input_image_filename
         n_load["widgets_values"] = wv
 
-    # Resize target dims
     n_resize = nodes.get(NODE_RESIZE)
     if n_resize and "widgets_values" in n_resize:
         wv = list(n_resize["widgets_values"])
@@ -173,7 +193,6 @@ def set_workflow_params(
             wv[RESIZE_IDX_DIV] = INTERNAL_MULTIPLE
         n_resize["widgets_values"] = wv
 
-    # Empty embeds dims + frames
     n_emb = nodes.get(NODE_EMPTY_EMBEDS)
     if n_emb and "widgets_values" in n_emb:
         wv = list(n_emb["widgets_values"])
@@ -185,7 +204,6 @@ def set_workflow_params(
             wv[EMBEDS_IDX_FRAMES] = num_frames
         n_emb["widgets_values"] = wv
 
-    # Sampler params
     n_samp = nodes.get(NODE_SAMPLER)
     if n_samp and "widgets_values" in n_samp:
         wv = list(n_samp["widgets_values"])
@@ -197,16 +215,16 @@ def set_workflow_params(
             wv[SAMPLER_IDX_SEED] = int(seed)
         n_samp["widgets_values"] = wv
 
-    # Video combine params
     n_vid = nodes.get(NODE_VIDEO_COMBINE)
     if n_vid and "widgets_values" in n_vid and isinstance(n_vid["widgets_values"], dict):
         d = dict(n_vid["widgets_values"])
         d[VIDEO_FPS_KEY] = float(fps)
-        d[VIDEO_PREFIX_KEY] = "api"
+        d[VIDEO_PREFIX_KEY] = "api_video"
         d[VIDEO_SAVE_KEY] = False
         n_vid["widgets_values"] = d
 
     return wf
+
 
 def submit_workflow_to_comfy(wf: Dict[str, Any]) -> str:
     r = comfy_post("/prompt", {"prompt": wf})
@@ -215,8 +233,9 @@ def submit_workflow_to_comfy(wf: Dict[str, Any]) -> str:
     data = r.json()
     pid = data.get("prompt_id")
     if not pid:
-        raise RuntimeError(f"Missing prompt_id in response: {data}")
+        raise RuntimeError(f"ComfyUI /prompt missing prompt_id: {data}")
     return pid
+
 
 def wait_for_prompt_done(prompt_id: str, poll_s: float = 1.0, timeout_s: int = 900) -> Dict[str, Any]:
     t0 = time.time()
@@ -224,40 +243,39 @@ def wait_for_prompt_done(prompt_id: str, poll_s: float = 1.0, timeout_s: int = 9
         r = comfy_get("/history")
         if r.status_code == 200:
             hist = r.json()
-            if prompt_id in hist:
-                entry = hist[prompt_id]
-                if isinstance(entry, dict) and entry.get("outputs"):
-                    return entry
+            if prompt_id in hist and isinstance(hist[prompt_id], dict) and hist[prompt_id].get("outputs"):
+                return hist[prompt_id]
         if time.time() - t0 > timeout_s:
             raise RuntimeError("Timed out waiting for ComfyUI prompt completion.")
         time.sleep(poll_s)
+
 
 def find_video_output_from_history(history_entry: Dict[str, Any]) -> Tuple[str, str, str]:
     outputs = history_entry.get("outputs", {})
     for _, node_out in outputs.items():
         if not isinstance(node_out, dict):
             continue
-        for key in ("videos", "gifs", "images", "files"):
+        for key in ("videos", "gifs", "files", "images"):
             items = node_out.get(key)
             if isinstance(items, list) and items and isinstance(items[0], dict):
                 item = items[0]
-                fn = item.get("filename")
-                sub = item.get("subfolder", "")
-                typ = item.get("type", "temp")
-                if fn and fn.lower().endswith(".mp4"):
-                    return fn, sub, typ
-                if fn and key in ("videos", "gifs"):
-                    return fn, sub, typ
-    raise RuntimeError("No video output found in history.")
+                filename = item.get("filename")
+                subfolder = item.get("subfolder", "")
+                ftype = item.get("type", "temp")
+                if filename and filename.lower().endswith(".mp4"):
+                    return filename, subfolder, ftype
+    raise RuntimeError("No MP4 video output found in ComfyUI history.")
+
 
 def download_comfy_file(filename: str, subfolder: str, ftype: str) -> bytes:
     r = comfy_get("/view", filename=filename, subfolder=subfolder, type=ftype)
     if r.status_code != 200:
-        raise RuntimeError(f"Failed /view download: {r.status_code} {r.text}")
+        raise RuntimeError(f"Failed to download from Comfy /view: {r.status_code} {r.text}")
     return r.content
 
-def list_loras_from_sidecars() -> Dict[str, Any]:
-    out: List[Dict[str, Any]] = []
+
+def list_loras() -> Dict[str, Any]:
+    loras = []
     seen = set()
 
     for root in LORA_SCAN_ROOTS:
@@ -277,40 +295,38 @@ def list_loras_from_sidecars() -> Dict[str, Any]:
                 if not isinstance(d, dict):
                     continue
                 alias = d.get("alias")
-                cat = d.get("category")
-                if not alias or not cat:
+                category = d.get("category")
+                if not alias or not category:
                     continue
-                key = (alias, cat)
+                key = (alias, category)
                 if key in seen:
                     continue
                 seen.add(key)
-                out.append({
+                loras.append({
                     "alias": alias,
-                    "category": cat,
+                    "category": category,
                     "is_nsfw": bool(d.get("is_nsfw", False)),
                     "default_weight": float(d.get("default_weight", 1.0)),
                     "min_weight": float(d.get("min_weight", 0.0)),
                     "max_weight": float(d.get("max_weight", 2.0)),
                 })
 
-    out.sort(key=lambda x: (x["category"], x["alias"]))
-    return {"loras": out, "count": len(out)}
+    loras = sorted(loras, key=lambda x: (x["category"], x["alias"]))
+    return {"loras": loras, "count": len(loras)}
+
 
 def handler(job: Dict[str, Any]) -> Dict[str, Any]:
-    inp = (job or {}).get("input") or {}
+    inp = job.get("input") or {}
 
-    # Basic test / readiness check
+    # IMPORTANT: RunPod build/test calls handler with empty input
     if not inp:
-        return {"ok": True, "message": "ready"}
+        return {"ok": True, "status": "ready", "message": "worker initialized"}
 
-    # LoRA listing (does not require ComfyUI)
-    if inp.get("action") == "list_loras":
-        return list_loras_from_sidecars()
+    # LoRA listing
+    if inp.get("action") == "list_loras" or inp.get("mode") == "list_loras":
+        return list_loras()
 
-    mode = (inp.get("mode") or "i2v").lower()
-
-    # For now, t2v is not wired into a separate workflow here.
-    # We accept it but require an image until a t2v workflow is provided.
+    # I2V requires an image
     image_b64 = inp.get("image_base64") or inp.get("image")
     if not image_b64:
         return {"error": "Missing input.image_base64 (base64-encoded image)."}
@@ -323,13 +339,10 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
 
     fps = float(inp.get("fps", DEFAULT_FPS) or DEFAULT_FPS)
     seconds = float(inp.get("seconds", DEFAULT_SECONDS) or DEFAULT_SECONDS)
-    if fps <= 0:
-        fps = DEFAULT_FPS
-    if seconds <= 0:
-        seconds = DEFAULT_SECONDS
+    fps = fps if fps > 0 else DEFAULT_FPS
+    seconds = seconds if seconds > 0 else DEFAULT_SECONDS
 
-    num_frames = int(round(fps * seconds))
-    num_frames = max(1, num_frames)
+    num_frames = max(1, int(round(fps * seconds)))
 
     seed = int(inp.get("seed", 47) or 47)
     steps = int(inp.get("steps", 30) or 30)
@@ -339,6 +352,7 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     wait_for_comfyui_ready()
 
     img = decode_base64_image(image_b64)
+
     w_int, h_int = compute_internal_dims(req_w, req_h)
 
     in_name = f"api_input_{uuid.uuid4().hex}.png"
@@ -368,13 +382,12 @@ def handler(job: Dict[str, Any]) -> Dict[str, Any]:
     out_b64 = base64.b64encode(mp4_bytes).decode("utf-8")
 
     return {
-        "ok": True,
-        "mode": mode,
         "prompt_id": prompt_id,
         "requested": {"width": req_w, "height": req_h, "fps": fps, "seconds": seconds, "frames": num_frames},
         "internal": {"width": w_int, "height": h_int, "multiple": INTERNAL_MULTIPLE},
         "video_base64": out_b64,
         "video_mime": "video/mp4",
     }
+
 
 runpod.serverless.start({"handler": handler})
