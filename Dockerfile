@@ -1,3 +1,5 @@
+# FORCE_CLEAN_BUILD_2026_01_12
+
 # Build argument for base image selection
 ARG BASE_IMAGE=nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
 
