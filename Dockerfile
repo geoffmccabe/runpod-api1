@@ -82,7 +82,7 @@ WORKDIR /
 RUN /opt/venv/bin/python -m pip install runpod requests websocket-client
 
 # Add application code and scripts
-ADD src/start.sh src/network_volume.py src/handler.py test_input.json ./
+ADD src/start.sh src/network_volume.py src/handler.py ./
 RUN chmod +x /start.sh
 
 # Add script to install custom nodes
@@ -98,19 +98,7 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 # RunPod Serverless entrypoint
 ENTRYPOINT ["python3", "-u", "/handler.py"]
 
-# Stage 2: Download models (optional)
-FROM base AS downloader
-
-ARG HUGGINGFACE_ACCESS_TOKEN
-ARG MODEL_TYPE=flux1-dev-fp8
-
-WORKDIR /comfyui
-RUN mkdir -p models/checkpoints models/vae models/unet models/clip
-
-RUN if [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
-      wget -q -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
-    fi
 
 # Stage 3: Final image
 FROM base AS final
-COPY --from=downloader /comfyui/models /comfyui/models
+
