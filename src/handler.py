@@ -1,6 +1,5 @@
 import os
 import time
-import json
 import requests
 import runpod
 
@@ -15,12 +14,7 @@ _comfy_ready = False
 
 
 def wait_for_comfy():
-    """
-    Lazy ComfyUI readiness check.
-    Called ONLY when a job arrives.
-    """
     global _comfy_ready
-
     if _comfy_ready:
         return
 
@@ -62,20 +56,21 @@ def wait_for_history(prompt_id):
 
 
 def handler(job):
-    """
-    RunPod Serverless job handler.
-    MUST NOT block on startup.
-    """
-    wait_for_comfy()
+    payload = job.get("input") or {}
 
-    payload = job["input"]
+    # Fast path for RunPod tests and health checks.
+    # IMPORTANT: does NOT wait for ComfyUI.
+    if payload.get("action") == "ping":
+        return {"status": "ok"}
+
+    # Real work path
+    wait_for_comfy()
 
     if "prompt" not in payload:
         raise ValueError("Missing 'prompt' in job input")
 
     result = submit_prompt(payload["prompt"])
     prompt_id = result.get("prompt_id")
-
     if not prompt_id:
         raise RuntimeError("ComfyUI did not return a prompt_id")
 
@@ -87,7 +82,4 @@ def handler(job):
     }
 
 
-# IMPORTANT:
-# This must be called immediately.
-# No blocking logic above this line.
 runpod.serverless.start({"handler": handler})
