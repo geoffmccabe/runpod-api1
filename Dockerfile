@@ -97,8 +97,3 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 # RunPod Serverless entrypoint
 ENTRYPOINT ["python3", "-u", "/handler.py"]
-
-
-# Stage 3: Final image
-FROM base AS final
-
