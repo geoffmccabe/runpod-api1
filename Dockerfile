@@ -75,11 +75,11 @@ RUN if [ "$ENABLE_PYTORCH_UPGRADE" = "true" ]; then \
       /opt/venv/bin/python -m pip install --force-reinstall torch torchvision torchaudio --index-url ${PYTORCH_INDEX_URL}; \
     fi
 
-# Change working directory to ComfyUI
-WORKDIR /comfyui
+# ComfyUI is installed under /comfyui/ComfyUI by comfy-cli
+ENV COMFYUI_DIR=/comfyui/ComfyUI
 
-# Support for the network volume
-ADD src/extra_model_paths.yaml ./
+# Put extra model paths where ComfyUI will actually read it
+ADD src/extra_model_paths.yaml /comfyui/ComfyUI/extra_model_paths.yaml
 
 # Go back to the root
 WORKDIR /
