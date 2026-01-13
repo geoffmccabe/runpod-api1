@@ -24,6 +24,8 @@ RUN apt-get update && apt-get install -y \
     python3.12-venv \
     git \
     wget \
+    curl \
+    ca-certificates \
     libgl1 \
     libglib2.0-0 \
     libsm6 \
@@ -32,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     && ln -sf /usr/bin/python3.12 /usr/bin/python \
     && ln -sf /usr/bin/pip3 /usr/bin/pip
+
 
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
