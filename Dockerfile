@@ -99,5 +99,6 @@ COPY scripts/comfy-manager-set-mode.sh /usr/local/bin/comfy-manager-set-mode
 RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 # RunPod Serverless entrypoint
-ENTRYPOINT ["/opt/venv/bin/python", "-u", "/handler.py"]
+ENTRYPOINT ["/bin/bash", "/start.sh"]
+
 
