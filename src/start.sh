@@ -5,7 +5,7 @@ echo "[start.sh] Booting container..."
 
 # Defaults (can be overridden by env)
 COMFYUI_DIR="${COMFYUI_DIR:-/comfyui}"
-COMFY_HOST="${COMFY_HOST:-127.0.0.1}"
+COMFY_HOST="${COMFY_HOST:-0.0.0.0}"
 COMFY_PORT="${COMFY_PORT:-8188}"
 COMFY_HTTP="http://${COMFY_HOST}:${COMFY_PORT}"
 
