@@ -1,5 +1,5 @@
 runpod_worker_comfy:
-  base_path: /wan-storage/
+  base_path: /wan-storage
   checkpoints: models/checkpoints/
   clip: models/clip/
   clip_vision: models/clip_vision/
