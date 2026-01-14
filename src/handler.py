@@ -11,9 +11,6 @@ COMFY_BASE = f"http://{COMFY_HOST}:{COMFY_PORT}"
 COMFY_READY_TIMEOUT = int(os.environ.get("COMFY_READY_TIMEOUT", "180"))
 COMFY_READY_POLL = 1.0
 
-# Optional env override
-LORA_REGISTRY_PATH = os.environ.get("LORA_REGISTRY_PATH", "")
-
 # Common locations across pods/serverless
 REGISTRY_REL = "models/lora-video/registry.generated.json"
 REGISTRY_CANDIDATE_BASES = [
@@ -48,6 +45,7 @@ def wait_for_comfy():
                 return
         except Exception as e:
             last_err = e
+
         time.sleep(COMFY_READY_POLL)
 
     raise RuntimeError(f"ComfyUI did not become ready: {last_err}")
@@ -83,12 +81,21 @@ def tail_file(path, max_bytes=8000):
         return {"path": path, "exists": True, "error": str(e), "tail": ""}
 
 
+def get_env_registry_path():
+    # Read env dynamically so changes apply when a new worker boots
+    return os.environ.get("LORA_REGISTRY_PATH", "").strip()
+
+
 def registry_candidates():
     paths = []
-    if LORA_REGISTRY_PATH:
-        paths.append(LORA_REGISTRY_PATH)
+
+    env_path = get_env_registry_path()
+    if env_path:
+        paths.append(env_path)
+
     for b in REGISTRY_CANDIDATE_BASES:
         paths.append(f"{b}/{REGISTRY_REL}")
+
     # de-dupe
     out, seen = [], set()
     for p in paths:
@@ -102,10 +109,14 @@ def resolve_registry_path():
     for p in registry_candidates():
         if os.path.exists(p):
             return p
-    tried = [{"path": p, "exists": os.path.exists(p)} for p in registry_candidates()]
-    raise FileNotFoundError(
-        "LoRA registry not found in this worker.",
-        {"env_LORA_REGISTRY_PATH": LORA_REGISTRY_PATH, "tried": tried},
+
+    tried = "\n".join([f"- {p} (exists={os.path.exists(p)})" for p in registry_candidates()])
+    raise RuntimeError(
+        "LoRA registry not found in this worker.\n"
+        "Tried:\n"
+        f"{tried}\n\n"
+        "Fix: ensure your Serverless endpoint has the network volume attached and locked to the volume's datacenter, "
+        "then set LORA_REGISTRY_PATH to the correct in-worker path."
     )
 
 
@@ -113,15 +124,16 @@ def load_registry():
     path = resolve_registry_path()
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
+
     if isinstance(data, dict):
         data["_resolved_registry_path"] = path
+
     return data
 
 
 def submit_prompt(prompt):
     r = requests.post(f"{COMFY_BASE}/prompt", json={"prompt": prompt}, timeout=30)
     if r.status_code >= 400:
-        # Bubble up ComfyUI's error body so you see the real reason
         raise RuntimeError(f"ComfyUI /prompt failed: HTTP {r.status_code} | {r.text[:4000]}")
     return r.json()
 
@@ -140,11 +152,9 @@ def handler(job):
     payload = job.get("input") or {}
     action = payload.get("action")
 
-    # Fast path health check
     if action == "ping":
         return {"status": "ok"}
 
-    # One-shot diagnostics: mounts + registry presence + comfy log tail + comfy stats
     if action == "diag":
         diag = {
             "env": {
@@ -162,7 +172,6 @@ def handler(job):
             "comfy_log_tail": [tail_file(p) for p in COMFY_LOG_CANDIDATES],
         }
 
-        # Try to include ComfyUI stats if reachable (but don't fail diag if not)
         try:
             wait_for_comfy()
             diag["comfy_system_stats"] = comfy_get("/system_stats")
@@ -171,11 +180,9 @@ def handler(job):
 
         return diag
 
-    # Registry fetch
     if action == "registry":
         return load_registry()
 
-    # Helpful ComfyUI endpoints
     if action == "comfy_system_stats":
         wait_for_comfy()
         return comfy_get("/system_stats")
@@ -184,7 +191,6 @@ def handler(job):
         wait_for_comfy()
         return comfy_get("/object_info")
 
-    # Real work path
     wait_for_comfy()
 
     if "prompt" not in payload:
