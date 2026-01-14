@@ -3,7 +3,6 @@ set -euo pipefail
 
 echo "[start.sh] Booting container..."
 
-COMFY_HOST="0.0.0.0"
 COMFY_PORT="8188"
 COMFY_HTTP="http://127.0.0.1:${COMFY_PORT}"
 PY="/opt/venv/bin/python"
@@ -11,8 +10,8 @@ PY="/opt/venv/bin/python"
 echo "[start.sh] COMFY_HTTP=${COMFY_HTTP}"
 echo "[start.sh] PY=${PY}"
 
-echo "[start.sh] Starting ComfyUI via comfy-cli..."
-comfy launch --listen ${COMFY_HOST} --port ${COMFY_PORT} &
+echo "[start.sh] Starting ComfyUI via comfy-cli (workspace: /comfyui)..."
+comfy --workspace /comfyui launch -- --listen 0.0.0.0 --port ${COMFY_PORT} &
 COMFY_PID=$!
 
 echo "[start.sh] Waiting for ComfyUI to become ready..."
