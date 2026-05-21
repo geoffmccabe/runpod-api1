@@ -1,14 +1,7 @@
 # =============================================================================
 # 
 #
-# What changed from original:
-#   - Added ComfyUI-WanVideoWrapper (CRITICAL — workflow uses 9 node types from it)
-#   - Added comfyui-videohelpersuite (workflow uses VHS_VideoCombine)
-#   - Kept all original base structure, uv venv, start.sh, handler.py
-#
-# Build:
-#   docker build -t yourrepo/worker-wan22:latest .
-#   docker push yourrepo/worker-wan22:latest
+
 #
 # Then in RunPod Serverless: attach Network Volume under Advanced settings.
 # =============================================================================
