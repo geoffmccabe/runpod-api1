@@ -84,7 +84,7 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 
 
-#   WanVideoModelLoader, WanVideoSampler, WanVideoEncode,
+#   WanVeoModelLoader, WanVideoSampler, WanVideoEncode,
 #   WanVideoVAELoader, WanVideoImageClipEncode, WanVideoTextEmbedBridge,
 #   WanVideoExperimentalArgs, WanVideoCacheArgs, WanVideoSLGArgs
 RUN comfy-node-install ComfyUI-WanVideoWrapper
