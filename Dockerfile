@@ -83,7 +83,7 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
 
 
-# ComfyUI-WanVideoWrapper — provides ALL Wan-specific nodes:
+
 #   WanVideoModelLoader, WanVideoSampler, WanVideoEncode,
 #   WanVideoVAELoader, WanVideoImageClipEncode, WanVideoTextEmbedBridge,
 #   WanVideoExperimentalArgs, WanVideoCacheArgs, WanVideoSLGArgs
