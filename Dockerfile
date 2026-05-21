@@ -81,7 +81,7 @@ ENV PIP_NO_INPUT=1
 COPY scripts/comfy-manager-set-mode.sh /usr/local/bin/comfy-manager-set-mode
 RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 
-# =============================================================================
+# =======================================================================
 # CUSTOM NODES  (this entire section was MISSING in the original Dockerfile)
 # The workflow wan_i2v_LOCKED.json requires all of these.
 # =============================================================================
