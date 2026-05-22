@@ -79,7 +79,7 @@ ENV COMFYUI_DIR=/comfyui/ComfyUI
 # Put extra model paths where ComfyUI will actually read it
 ADD src/extra_model_paths.yaml /comfyui/ComfyUI/extra_model_paths.yaml
 
-# Install Python runtime dependencies for the handler
+
 RUN /opt/venv/bin/python -m pip install runpod requests websocket-client
 
 # ------------------------------------------------------------
