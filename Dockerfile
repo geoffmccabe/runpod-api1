@@ -106,6 +106,11 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 # WanVideoVAELoader, WanVideoImageClipEncode, WanVideoTextEmbedBridge,
 # WanVideoExperimentalArgs, WanVideoCacheArgs, WanVideoSLGArgs
 # Install custom nodes directly via git (bypasses comfy-node-install script)
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/kijai/ComfyUI-KJNodes.git && \
+    if [ -f /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt ]; then \
+      /comfyui/.venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt; \
+    fi
 RUN git clone https://github.com/kijai/ComfyUI-WanVideoWrapper.git \
     /comfyui/custom_nodes/ComfyUI-WanVideoWrapper \
     && /comfyui/.venv/bin/pip install -r \
