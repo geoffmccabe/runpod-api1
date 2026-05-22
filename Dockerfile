@@ -42,7 +42,7 @@ RUN wget -qO- https://astral.sh/uv/install.sh | sh \
     && ln -s /root/.local/bin/uvx /usr/local/bin/uvx \
     && uv venv /opt/venv
 
-# Use the virtual environment for all subsequent commands
+
 ENV PATH="/opt/venv/bin:${PATH}"
 
 # CRITICAL FIX: ensure pip exists inside the venv (comfy-cli requires it)
