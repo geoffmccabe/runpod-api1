@@ -108,7 +108,9 @@ RUN mkdir -p /comfyui/custom_nodes
 
 # Pre-install critical system packages directly into ComfyUI's internal venv
 RUN /comfyui/.venv/bin/pip install --no-cache-dir opencv-python-headless accelerate
-
+RUN /comfyui/.venv/bin/pip install --force-reinstall \
+    torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/cu128
 # 1. ComfyUI-KJNodes
 RUN git clone https://github.com/kijai/ComfyUI-KJNodes.git /comfyui/custom_nodes/ComfyUI-KJNodes && \
     /comfyui/.venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt
