@@ -73,10 +73,11 @@ RUN if [ "$ENABLE_PYTORCH_UPGRADE" = "true" ]; then \
     /opt/venv/bin/python -m pip install --force-reinstall torch torchvision torchaudio --index-url ${PYTORCH_INDEX_URL}; \
     fi
 
-# ComfyUI is installed under /comfyui/ComfyUI by comfy-cli
-ENV COMFYUI_DIR=/comfyui/ComfyUI
+# ComfyUI is installed under /comfyui by comfy-cli
+ENV COMFYUI_DIR=/comfyui
 
-# Put extra model paths where ComfyUI will actually read it
+# CRITICAL FIX: Copy paths configuration exactly where ComfyUI launches from
+ADD src/extra_model_paths.yaml /comfyui/extra_model_paths.yaml
 ADD src/extra_model_paths.yaml /comfyui/ComfyUI/extra_model_paths.yaml
 
 # Go back to the root
@@ -102,24 +103,20 @@ RUN chmod +x /usr/local/bin/comfy-manager-set-mode
 # =============================================================================
 # CUSTOM NODES — required by wan_i2v_LOCKED.json workflow
 # =============================================================================
-# WanVideoWrapper: provides WanVideoModelLoader, WanVideoSampler, WanVideoEncode,
-# WanVideoVAELoader, WanVideoImageClipEncode, WanVideoTextEmbedBridge,
-# WanVideoExperimentalArgs, WanVideoCacheArgs, WanVideoSLGArgs
-# Install custom nodes directly via git (bypasses comfy-node-install script)
-RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/kijai/ComfyUI-KJNodes.git && \
-    if [ -f /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt ]; then \
-      /comfyui/.venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt; \
-    fi
-RUN git clone https://github.com/kijai/ComfyUI-WanVideoWrapper.git \
-    /comfyui/custom_nodes/ComfyUI-WanVideoWrapper \
-    && /comfyui/.venv/bin/pip install -r \
-    /comfyui/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
+# Cleanly clone and compile custom dependencies into the active global venv environment
+RUN mkdir -p /comfyui/custom_nodes
 
-RUN git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git \
-    /comfyui/custom_nodes/ComfyUI-VideoHelperSuite \
-    && /comfyui/.venv/bin/pip install -r \
-    /comfyui/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt
+# 1. ComfyUI-KJNodes
+RUN git clone https://github.com/kijai/ComfyUI-KJNodes.git /comfyui/custom_nodes/ComfyUI-KJNodes && \
+    /opt/venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-KJNodes/requirements.txt
+
+# 2. ComfyUI-WanVideoWrapper
+RUN git clone https://github.com/kijai/ComfyUI-WanVideoWrapper.git /comfyui/custom_nodes/ComfyUI-WanVideoWrapper && \
+    /opt/venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-WanVideoWrapper/requirements.txt
+
+# 3. ComfyUI-VideoHelperSuite
+RUN git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git /comfyui/custom_nodes/ComfyUI-VideoHelperSuite && \
+    /opt/venv/bin/pip install -r /comfyui/custom_nodes/ComfyUI-VideoHelperSuite/requirements.txt
 
 # RunPod Serverless entrypoint
 ENTRYPOINT ["/bin/bash", "/start.sh"]
