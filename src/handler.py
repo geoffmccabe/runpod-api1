@@ -286,7 +286,7 @@ def upload_output_to_supabase(filename: str, filepath: str) -> str:
                 "Content-Length": str(file_size),
             },
             data=f,       # stream directly from file handle — no memory bloat
-            timeout=300,  # 5 minutes
+            timeout=30000,  # 5 minutes
         )
     if resp.status_code >= 400:
         raise RuntimeError(
