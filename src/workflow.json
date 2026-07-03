@@ -1,0 +1,815 @@
+{
+  "84": {
+    "inputs": {
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load CLIP"
+    }
+  },
+  "90": {
+    "inputs": {
+      "vae_name": "Wan2_1_VAE_bf16.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "97": {
+    "inputs": {
+      "image": "Gemini_Generated_Image_jk7o1njk7o1njk7o.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "101": {
+    "inputs": {
+      "lora_name": "Wan_2_2_I2V_A14B_HIGH_lightx2v_4step_lora_v1030_rank_64_bf16.safetensors",
+      "strength_model": 1.0000000000000002,
+      "model": [
+        "116",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "102": {
+    "inputs": {
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 1.0000000000000002,
+      "model": [
+        "117",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "104": {
+    "inputs": {
+      "shift": 5.000000000000001,
+      "model": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "ModelSamplingSD3"
+    }
+  },
+  "116": {
+    "inputs": {
+      "model_name": "Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
+      "weight_dtype": "default",
+      "compute_dtype": "default",
+      "patch_cublaslinear": false,
+      "sage_attention": "auto",
+      "enable_fp16_accumulation": false
+    },
+    "class_type": "DiffusionModelLoaderKJ",
+    "_meta": {
+      "title": "Diffusion Model Loader KJ"
+    }
+  },
+  "117": {
+    "inputs": {
+      "model_name": "Wan2_2-I2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
+      "weight_dtype": "default",
+      "compute_dtype": "default",
+      "patch_cublaslinear": false,
+      "sage_attention": "auto",
+      "enable_fp16_accumulation": false
+    },
+    "class_type": "DiffusionModelLoaderKJ",
+    "_meta": {
+      "title": "Diffusion Model Loader KJ"
+    }
+  },
+  "122": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 6,
+      "denoise": 1,
+      "model": [
+        "104",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "127": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "128": {
+    "inputs": {
+      "step": 3,
+      "sigmas": [
+        "122",
+        0
+      ]
+    },
+    "class_type": "SplitSigmas",
+    "_meta": {
+      "title": "SplitSigmas"
+    }
+  },
+  "135": {
+    "inputs": {
+      "pixels": [
+        "136",
+        0
+      ],
+      "vae": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "136": {
+    "inputs": {
+      "width": 640,
+      "height": 640,
+      "upscale_method": "lanczos",
+      "keep_proportion": "crop",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "97",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "141": {
+    "inputs": {
+      "lora_name": "SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "101",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "142": {
+    "inputs": {
+      "lora_name": "SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
+      "strength_model": 1,
+      "model": [
+        "102",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Load LoRA"
+    }
+  },
+  "182": {
+    "inputs": {
+      "noise_seed": 43
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "189": {
+    "inputs": {
+      "noise_seed": 43
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "199": {
+    "inputs": {
+      "noise_seed": 43
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "204": {
+    "inputs": {
+      "frame_rate": 16,
+      "loop_count": 0,
+      "filename_prefix": "Wan22_SVI_Pro",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "203:227",
+        2
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "193:209": {
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "193:210": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "142",
+        0
+      ],
+      "positive": [
+        "193:215",
+        0
+      ],
+      "negative": [
+        "193:215",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "193:211": {
+    "inputs": {
+      "text": "The girl draws a butterfly on the paper; the drawing begins to shimmer and lift off the page into 3D.",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "193:212": {
+    "inputs": {},
+    "class_type": "DisableNoise",
+    "_meta": {
+      "title": "DisableNoise"
+    }
+  },
+  "193:213": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "141",
+        0
+      ],
+      "positive": [
+        "193:215",
+        0
+      ],
+      "negative": [
+        "193:215",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "193:214": {
+    "inputs": {
+      "noise": [
+        "189",
+        0
+      ],
+      "guider": [
+        "193:213",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        0
+      ],
+      "latent_image": [
+        "193:215",
+        2
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "193:215": {
+    "inputs": {
+      "length": 81,
+      "motion_latent_count": 0,
+      "positive": [
+        "193:211",
+        0
+      ],
+      "negative": [
+        "193:209",
+        0
+      ],
+      "anchor_samples": [
+        "135",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideoSVIPro",
+    "_meta": {
+      "title": "WanImageToVideoSVIPro"
+    }
+  },
+  "193:216": {
+    "inputs": {
+      "noise": [
+        "193:212",
+        0
+      ],
+      "guider": [
+        "193:210",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        1
+      ],
+      "latent_image": [
+        "193:214",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "193:217": {
+    "inputs": {
+      "samples": [
+        "193:216",
+        0
+      ],
+      "vae": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "181:162": {
+    "inputs": {
+      "samples": [
+        "181:208",
+        0
+      ],
+      "vae": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "181:160": {
+    "inputs": {
+      "length": 81,
+      "motion_latent_count": 1,
+      "positive": [
+        "181:152",
+        0
+      ],
+      "negative": [
+        "181:206",
+        0
+      ],
+      "anchor_samples": [
+        "135",
+        0
+      ],
+      "prev_samples": [
+        "193:216",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideoSVIPro",
+    "_meta": {
+      "title": "WanImageToVideoSVIPro"
+    }
+  },
+  "181:206": {
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "181:159": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "142",
+        0
+      ],
+      "positive": [
+        "181:160",
+        0
+      ],
+      "negative": [
+        "181:160",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "181:152": {
+    "inputs": {
+      "text": "The glowing butterfly flutters around the room as the girl laughs and tries to catch it with her hands.",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "181:183": {
+    "inputs": {},
+    "class_type": "DisableNoise",
+    "_meta": {
+      "title": "DisableNoise"
+    }
+  },
+  "181:158": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "141",
+        0
+      ],
+      "positive": [
+        "181:160",
+        0
+      ],
+      "negative": [
+        "181:160",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "181:207": {
+    "inputs": {
+      "noise": [
+        "182",
+        0
+      ],
+      "guider": [
+        "181:158",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        0
+      ],
+      "latent_image": [
+        "181:160",
+        2
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "181:208": {
+    "inputs": {
+      "noise": [
+        "181:183",
+        0
+      ],
+      "guider": [
+        "181:159",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        1
+      ],
+      "latent_image": [
+        "181:207",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "181:168": {
+    "inputs": {
+      "overlap": 5,
+      "overlap_side": "source",
+      "overlap_mode": "linear_blend",
+      "source_images": [
+        "193:217",
+        0
+      ],
+      "new_images": [
+        "181:162",
+        0
+      ]
+    },
+    "class_type": "ImageBatchExtendWithOverlap",
+    "_meta": {
+      "title": "Image Batch Extend With Overlap"
+    }
+  },
+  "203:218": {
+    "inputs": {
+      "samples": [
+        "203:226",
+        0
+      ],
+      "vae": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "203:219": {
+    "inputs": {
+      "length": 81,
+      "motion_latent_count": 1,
+      "positive": [
+        "203:222",
+        0
+      ],
+      "negative": [
+        "203:220",
+        0
+      ],
+      "anchor_samples": [
+        "135",
+        0
+      ],
+      "prev_samples": [
+        "181:208",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideoSVIPro",
+    "_meta": {
+      "title": "WanImageToVideoSVIPro"
+    }
+  },
+  "203:220": {
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "203:221": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "142",
+        0
+      ],
+      "positive": [
+        "203:219",
+        0
+      ],
+      "negative": [
+        "203:219",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "203:222": {
+    "inputs": {
+      "text": "The butterfly gently lands on the girl’s nose, turns back into a paper sketch, and she smiles, closing the book.",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "203:223": {
+    "inputs": {},
+    "class_type": "DisableNoise",
+    "_meta": {
+      "title": "DisableNoise"
+    }
+  },
+  "203:224": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "141",
+        0
+      ],
+      "positive": [
+        "203:219",
+        0
+      ],
+      "negative": [
+        "203:219",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "203:225": {
+    "inputs": {
+      "noise": [
+        "199",
+        0
+      ],
+      "guider": [
+        "203:224",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        0
+      ],
+      "latent_image": [
+        "203:219",
+        2
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "203:226": {
+    "inputs": {
+      "noise": [
+        "203:223",
+        0
+      ],
+      "guider": [
+        "203:221",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        1
+      ],
+      "latent_image": [
+        "203:225",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "203:227": {
+    "inputs": {
+      "overlap": 5,
+      "overlap_side": "source",
+      "overlap_mode": "linear_blend",
+      "source_images": [
+        "181:168",
+        2
+      ],
+      "new_images": [
+        "203:218",
+        0
+      ]
+    },
+    "class_type": "ImageBatchExtendWithOverlap",
+    "_meta": {
+      "title": "Image Batch Extend With Overlap"
+    }
+  }
+}
