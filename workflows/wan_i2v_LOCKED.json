@@ -235,7 +235,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "You can also use native ComfyUI text encoding with these nodes instead of the original, the models are node specific and can't otherwise be mixed."
+        "Y."
       ],
       "color": "#432",
       "bgcolor": "#653"
