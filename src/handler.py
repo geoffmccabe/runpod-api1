@@ -250,9 +250,12 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
 
     # Patch BasicScheduler steps
     if sampling_steps:
-        for nid, node in wf.items():
-            if isinstance(node, dict) and node.get("class_type") == "BasicScheduler":
-                node["inputs"]["steps"] = int(sampling_steps)
+    steps = int(sampling_steps)
+    for nid, node in wf.items():
+        if isinstance(node, dict) and node.get("class_type") == "BasicScheduler":
+            node["inputs"]["steps"] = steps
+        if isinstance(node, dict) and node.get("class_type") == "SplitSigmas":
+            node["inputs"]["step"] = steps
 
     # Vary seeds per batch
     if "189" in wf: wf["189"]["inputs"]["noise_seed"] = 43 + batch_start_idx
