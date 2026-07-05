@@ -19,6 +19,7 @@ SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "videos")
 
 
 
+
 DEFAULT_WORKFLOW_PATH = "/workflow.json"
 
 COMFY_OUTPUT_DIRS = [
@@ -37,13 +38,15 @@ DEFAULT_FRAMES_PER_SCENE = 81
 DEFAULT_FPS              = 16
 SCENES_PER_BATCH         = 3
 
-# Total scenes now supported end-to-end (10 batches x 3 scenes/batch,
-# chained via last-frame continuity between batches)
 MAX_TOTAL_SCENES         = 30
 DEFAULT_NUM_SCENES       = 30
 
 _comfy_ready = False
 
+
+# --------------------------------------------------------------------------
+# Supabase / Comfy plumbing (unchanged)
+# --------------------------------------------------------------------------
 
 def supabase_upload(local_path: str, remote_filename: str) -> str:
     if not SUPABASE_KEY:
@@ -237,91 +240,6 @@ def extract_last_frame(video_path: str, output_path: str):
     return output_path
 
 
-def build_batch_workflow(base_workflow, scene_prompts, negative_text,
-                         frames_per_scene, sampling_steps,
-                         uploaded_filename, fps, batch_start_idx):
-    """
-    ImageBatchExtendWithOverlap output slots:
-      slot 0 = source images only
-      slot 1 = new images only
-      slot 2 = COMBINED extended images  <-- this is what VHS must use
-    """
-    wf = copy.deepcopy(base_workflow)
-    n  = len(scene_prompts)
-
-    # Patch LoadImage
-    if uploaded_filename:
-        for nid, node in wf.items():
-            if isinstance(node, dict) and node.get("class_type") == "LoadImage":
-                node["inputs"]["image"] = uploaded_filename
-
-    # Patch BasicScheduler steps
-    if sampling_steps:
-        for nid, node in wf.items():
-            if isinstance(node, dict) and node.get("class_type") == "BasicScheduler":
-                node["inputs"]["steps"] = int(sampling_steps)
-
-    # Vary seeds per batch
-    if "189" in wf: wf["189"]["inputs"]["noise_seed"] = 43 + batch_start_idx
-    if "182" in wf: wf["182"]["inputs"]["noise_seed"] = 44 + batch_start_idx
-    if "199" in wf: wf["199"]["inputs"]["noise_seed"] = 45 + batch_start_idx
-
-    # Always configure Scene 1 (193:xxx)
-    wf["193:211"]["inputs"]["text"] = scene_prompts[0]
-    wf["193:209"]["inputs"]["text"] = negative_text
-    wf["193:215"]["inputs"]["length"] = frames_per_scene
-    wf["193:215"]["inputs"]["motion_latent_count"] = 0
-
-    if n == 1:
-        # Scene 1 only — VHS gets VAEDecode output directly
-        wf["204"]["inputs"]["images"] = ["193:217", 0]
-        wf["204"]["inputs"]["frame_rate"] = fps
-        to_remove = [k for k in wf if k.startswith("181:") or k.startswith("203:")]
-        for k in to_remove:
-            del wf[k]
-
-    elif n == 2:
-        # Scene 1 + Scene 2 chained
-        wf["181:152"]["inputs"]["text"] = scene_prompts[1]
-        wf["181:206"]["inputs"]["text"] = negative_text
-        wf["181:160"]["inputs"]["length"] = frames_per_scene
-        wf["181:160"]["inputs"]["motion_latent_count"] = 1
-        wf["181:160"]["inputs"]["prev_samples"]  = ["193:216", 0]
-        wf["181:168"]["inputs"]["source_images"] = ["193:217", 0]
-        wf["181:168"]["inputs"]["new_images"]    = ["181:162", 0]
-        # SLOT 2 = combined scene1+scene2 frames
-        wf["204"]["inputs"]["images"] = ["181:168", 2]
-        wf["204"]["inputs"]["frame_rate"] = fps
-        to_remove = [k for k in wf if k.startswith("203:")]
-        for k in to_remove:
-            del wf[k]
-
-    else:
-        # All 3 scenes chained
-        wf["181:152"]["inputs"]["text"] = scene_prompts[1]
-        wf["181:206"]["inputs"]["text"] = negative_text
-        wf["181:160"]["inputs"]["length"] = frames_per_scene
-        wf["181:160"]["inputs"]["motion_latent_count"] = 1
-        wf["181:160"]["inputs"]["prev_samples"]  = ["193:216", 0]
-        wf["181:168"]["inputs"]["source_images"] = ["193:217", 0]
-        wf["181:168"]["inputs"]["new_images"]    = ["181:162", 0]
-
-        wf["203:222"]["inputs"]["text"] = scene_prompts[2]
-        wf["203:220"]["inputs"]["text"] = negative_text
-        wf["203:219"]["inputs"]["length"] = frames_per_scene
-        wf["203:219"]["inputs"]["motion_latent_count"] = 1
-        wf["203:219"]["inputs"]["prev_samples"]  = ["181:208", 0]
-        # SLOT 2 = combined output from 181:168 (scene1+scene2)
-        wf["203:227"]["inputs"]["source_images"] = ["181:168", 2]
-        wf["203:227"]["inputs"]["new_images"]    = ["203:218", 0]
-        # SLOT 2 = combined scene1+scene2+scene3 frames
-        wf["204"]["inputs"]["images"] = ["203:227", 2]
-        wf["204"]["inputs"]["frame_rate"] = fps
-
-    wf["204"]["inputs"]["filename_prefix"] = f"batch_{batch_start_idx:02d}"
-    return wf
-
-
 def ffmpeg_concat(video_paths: list, output_path: str):
     with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
         for vp in video_paths:
@@ -335,6 +253,202 @@ def ffmpeg_concat(video_paths: list, output_path: str):
         raise RuntimeError(f"FFmpeg stitch failed: {result.stderr}")
     return output_path
 
+
+# --------------------------------------------------------------------------
+# Graph-traced scene chain for the flattened SVI Pro export.
+#
+# This replaces the old hardcoded "193:211" / "181:xxx" / "203:xxx" keys,
+# which belonged to a different (subgraph-based) workflow export and no
+# longer exist in your current flattened workflow.json — that mismatch is
+# what caused the KeyError you hit. Instead we trace the actual node links
+# (prev_samples / source_images / new_images) at runtime, so this works
+# regardless of the exact node ids in the export.
+# --------------------------------------------------------------------------
+
+def find_node_id_by_class(workflow, class_type):
+    matches = [k for k, v in workflow.items()
+               if isinstance(v, dict) and v.get("class_type") == class_type]
+    if not matches:
+        raise RuntimeError(f"No node of class_type={class_type} found in workflow.")
+    if len(matches) > 1:
+        raise RuntimeError(f"Multiple nodes of class_type={class_type} found: {matches}")
+    return matches[0]
+
+
+def trace_scene_plan(workflow):
+    def inp(node, key):
+        return node["inputs"].get(key)
+
+    wan_nodes = {k: v for k, v in workflow.items() if v.get("class_type") == "WanImageToVideoSVIPro"}
+    sampler_nodes = {k: v for k, v in workflow.items() if v.get("class_type") == "SamplerCustomAdvanced"}
+    vaedecode_nodes = {k: v for k, v in workflow.items() if v.get("class_type") == "VAEDecode"}
+    extend_nodes = {k: v for k, v in workflow.items() if v.get("class_type") == "ImageBatchExtendWithOverlap"}
+
+    if not wan_nodes:
+        raise RuntimeError("No WanImageToVideoSVIPro nodes found — is this an SVI Pro workflow?")
+
+    starts = [k for k, v in wan_nodes.items() if inp(v, "prev_samples") is None]
+    if len(starts) != 1:
+        raise RuntimeError(f"Expected exactly one starting scene, found: {starts}")
+    start = starts[0]
+
+    samplerid_to_nextwan = {}
+    for k, v in wan_nodes.items():
+        ps = inp(v, "prev_samples")
+        if ps:
+            samplerid_to_nextwan[ps[0]] = k
+
+    def find_samplers_for_wan(wan_id):
+        first = None
+        for k, v in sampler_nodes.items():
+            li = inp(v, "latent_image")
+            if li and li[0] == wan_id and li[1] == 2:
+                first = k
+        second = None
+        for k, v in sampler_nodes.items():
+            li = inp(v, "latent_image")
+            if li and li[0] == first:
+                second = k
+        return first, second
+
+    def find_decode_for_sampler(sampler_id):
+        for k, v in vaedecode_nodes.items():
+            s = inp(v, "samples")
+            if s and s[0] == sampler_id:
+                return k
+        return None
+
+    scene_plan = []
+    cur = start
+    i = 1
+    while cur:
+        v = wan_nodes[cur]
+        pos = inp(v, "positive")[0]
+        neg = inp(v, "negative")[0]
+        first_s, second_s = find_samplers_for_wan(cur)
+        decode_id = find_decode_for_sampler(second_s)
+        guider1 = inp(sampler_nodes[first_s], "guider")[0] if first_s else None
+        guider2 = inp(sampler_nodes[second_s], "guider")[0] if second_s else None
+        noise1 = inp(sampler_nodes[first_s], "noise")[0] if first_s else None
+        noise2 = inp(sampler_nodes[second_s], "noise")[0] if second_s else None
+        scene_plan.append({
+            "scene": i,
+            "wan": cur,
+            "positive": pos,
+            "negative": neg,
+            "first_sampler": first_s,
+            "second_sampler": second_s,
+            "decode": decode_id,
+            "guider1": guider1,
+            "guider2": guider2,
+            "noise1": noise1,
+            "noise2": noise2,
+        })
+        cur = samplerid_to_nextwan.get(second_s)
+        i += 1
+
+    remaining = dict(extend_nodes)
+    first_extend = None
+    for k, v in remaining.items():
+        src = inp(v, "source_images")
+        if src and src[0] in vaedecode_nodes:
+            first_extend = k
+            break
+
+    ext_chain = []
+    if first_extend:
+        ext_chain = [first_extend]
+        cur = first_extend
+        del remaining[cur]
+        while remaining:
+            nxt = None
+            for k, v in remaining.items():
+                src = inp(v, "source_images")
+                if src and src[0] == cur:
+                    nxt = k
+                    break
+            if not nxt:
+                break
+            ext_chain.append(nxt)
+            cur = nxt
+            del remaining[nxt]
+
+    for idx, ext_id in enumerate(ext_chain):
+        scene_num = idx + 2
+        for sp in scene_plan:
+            if sp["scene"] == scene_num:
+                sp["extend"] = ext_id
+
+    return scene_plan
+
+
+def build_scene_workflow(base_workflow, scene_prompts, negative_text,
+                          frames_per_scene, sampling_steps, uploaded_filename,
+                          fps, filename_prefix="batch"):
+    """
+    Truncates the traced scene chain to len(scene_prompts) scenes
+    (starting from scene 1 of the chain) and rewires VHS_VideoCombine to
+    read from the correct final node. Used per-batch: every batch reuses
+    the workflow's own "scene 1/2/3" chain as a self-contained 3-scene
+    unit, with `uploaded_filename` swapped to the previous batch's last
+    frame to carry continuity across batches — same idea as the original
+    handler's per-batch subgraph approach, just graph-traced instead of
+    hardcoded.
+    """
+    wf = copy.deepcopy(base_workflow)
+    scene_plan = trace_scene_plan(wf)
+    max_scenes = len(scene_plan)
+
+    n = len(scene_prompts)
+    if n > max_scenes:
+        n = max_scenes
+        scene_prompts = scene_prompts[:max_scenes]
+
+    if isinstance(frames_per_scene, (list, tuple)):
+        frame_lengths = [
+            min(int(frames_per_scene[min(i, len(frames_per_scene) - 1)]), MAX_FRAMES_PER_SCENE)
+            for i in range(n)
+        ]
+    else:
+        frame_lengths = [min(int(frames_per_scene), MAX_FRAMES_PER_SCENE)] * n
+
+    if uploaded_filename:
+        load_image_id = find_node_id_by_class(wf, "LoadImage")
+        wf[load_image_id]["inputs"]["image"] = uploaded_filename
+
+    if sampling_steps:
+        scheduler_id = find_node_id_by_class(wf, "BasicScheduler")
+        wf[scheduler_id]["inputs"]["steps"] = int(sampling_steps)
+
+    for i in range(n):
+        sp = scene_plan[i]
+        wf[sp["positive"]]["inputs"]["text"] = scene_prompts[i]
+        wf[sp["negative"]]["inputs"]["text"] = negative_text
+        wf[sp["wan"]]["inputs"]["length"] = frame_lengths[i]
+
+    for sp in scene_plan[n:]:
+        for key in ("positive", "negative", "wan", "first_sampler", "second_sampler",
+                    "decode", "extend", "guider1", "guider2", "noise2"):
+            node_id = sp.get(key)
+            if node_id and node_id in wf:
+                del wf[node_id]
+
+    vhs_id = find_node_id_by_class(wf, "VHS_VideoCombine")
+    if n == 1:
+        wf[vhs_id]["inputs"]["images"] = [scene_plan[0]["decode"], 0]
+    else:
+        final_extend = scene_plan[n - 1]["extend"]
+        wf[vhs_id]["inputs"]["images"] = [final_extend, 2]
+
+    wf[vhs_id]["inputs"]["frame_rate"] = fps
+    wf[vhs_id]["inputs"]["filename_prefix"] = filename_prefix
+
+    return wf, n
+
+
+# --------------------------------------------------------------------------
+# Handler — 10 batches of 3 scenes, chained via last-frame continuity
+# --------------------------------------------------------------------------
 
 def handler(job):
     payload = job.get("input") or {}
@@ -379,6 +493,10 @@ def handler(job):
         print(f"[handler] Requested {num_scenes} scenes, capping at {MAX_TOTAL_SCENES}.")
         num_scenes = MAX_TOTAL_SCENES
 
+    # reuse last prompt if fewer prompts than scenes were given
+    if len(prompts) < num_scenes:
+        prompts = prompts + [prompts[-1]] * (num_scenes - len(prompts))
+
     job_id      = job.get("id", f"job_{int(time.time())}")
     output_dir  = find_output_dir()
     chunk_urls  = []
@@ -395,15 +513,12 @@ def handler(job):
     while scene_idx < num_scenes:
         batch_num  += 1
         batch_size  = min(SCENES_PER_BATCH, num_scenes - scene_idx)
-        batch_prompts = [
-            prompts[min(scene_idx + i, len(prompts) - 1)]
-            for i in range(batch_size)
-        ]
+        batch_prompts = prompts[scene_idx:scene_idx + batch_size]
 
         print(f"[handler] Batch {batch_num}: scenes {scene_idx+1}-{scene_idx+batch_size} "
               f"({batch_size} scene(s) chained)")
 
-        wf = build_batch_workflow(
+        wf, actual = build_scene_workflow(
             base_workflow,
             scene_prompts=batch_prompts,
             negative_text=negative_text,
@@ -411,7 +526,7 @@ def handler(job):
             sampling_steps=sampling_steps,
             uploaded_filename=uploaded_filename,
             fps=fps,
-            batch_start_idx=scene_idx,
+            filename_prefix=f"{job_id}_batch{batch_num:02d}",
         )
 
         result    = submit_prompt(wf, f"runpod_b{batch_num}")
