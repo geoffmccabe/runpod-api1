@@ -11,11 +11,13 @@ import runpod
 COMFY_HOST = os.environ.get("COMFY_HOST", "127.0.0.1")
 COMFY_PORT = int(os.environ.get("COMFY_PORT", "8188"))
 COMFY_BASE = f"http://{COMFY_HOST}:{COMFY_PORT}"
-COMFY_READY_TIMEOUT = int(os.environ.get("COMFY_READY_TIMEOUT", "1800"))
+COMFY_READY_TIMEOUT = int(os.environ.get("COMFY_READY_TIMEOUT", "1800000"))
 
 SUPABASE_URL    = os.environ.get("SUPABASE_URL", "https://zcpyipwqlssqdbyjoolb.supabase.co")
 SUPABASE_KEY    = os.environ.get("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpjcHlpcHdxbHNzcWRieWpvb2xiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NzgxMDg0NiwiZXhwIjoyMDkzMzg2ODQ2fQ.RCnIru-Cc4a49KFbCL6NWKm8uvahiur0zaKSiAsnsGs")
 SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "videos")
+
+
 
 DEFAULT_WORKFLOW_PATH = "/workflow.json"
 
@@ -34,6 +36,11 @@ MAX_FRAMES_PER_SCENE     = 257
 DEFAULT_FRAMES_PER_SCENE = 81
 DEFAULT_FPS              = 16
 SCENES_PER_BATCH         = 3
+
+# Total scenes now supported end-to-end (10 batches x 3 scenes/batch,
+# chained via last-frame continuity between batches)
+MAX_TOTAL_SCENES         = 30
+DEFAULT_NUM_SCENES       = 30
 
 _comfy_ready = False
 
@@ -250,12 +257,9 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
 
     # Patch BasicScheduler steps
     if sampling_steps:
-       steps = int(sampling_steps)
-       for nid, node in wf.items():
-           if isinstance(node, dict) and node.get("class_type") == "BasicScheduler":
-               node["inputs"]["steps"] = steps
-           if isinstance(node, dict) and node.get("class_type") == "SplitSigmas":
-               node["inputs"]["step"] = steps
+        for nid, node in wf.items():
+            if isinstance(node, dict) and node.get("class_type") == "BasicScheduler":
+                node["inputs"]["steps"] = int(sampling_steps)
 
     # Vary seeds per batch
     if "189" in wf: wf["189"]["inputs"]["noise_seed"] = 43 + batch_start_idx
@@ -369,7 +373,11 @@ def handler(job):
     sampling_steps   = payload.get("sampling_steps")
     frames_per_scene = min(int(payload.get("frames_per_scene", DEFAULT_FRAMES_PER_SCENE)), MAX_FRAMES_PER_SCENE)
     fps              = int(payload.get("fps", DEFAULT_FPS))
-    num_scenes       = max(1, int(payload.get("num_scenes", 3)))
+
+    num_scenes = max(1, int(payload.get("num_scenes", DEFAULT_NUM_SCENES)))
+    if num_scenes > MAX_TOTAL_SCENES:
+        print(f"[handler] Requested {num_scenes} scenes, capping at {MAX_TOTAL_SCENES}.")
+        num_scenes = MAX_TOTAL_SCENES
 
     job_id      = job.get("id", f"job_{int(time.time())}")
     output_dir  = find_output_dir()
