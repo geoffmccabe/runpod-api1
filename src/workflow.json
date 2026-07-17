@@ -2,7 +2,7 @@
   "84": {
     "inputs": {
       "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
-      "type": "wan",
+      "type": "lumina2",
       "device": "default"
     },
     "class_type": "CLIPLoader",
@@ -12,7 +12,7 @@
   },
   "90": {
     "inputs": {
-      "vae_name": "Wan2.1_VAE.pth"
+      "vae_name": "Wan2_1_VAE_bf16.safetensors"
     },
     "class_type": "VAELoader",
     "_meta": {
@@ -21,7 +21,7 @@
   },
   "97": {
     "inputs": {
-      "image": "ab80ac620fcf9f8773ec7ddc0c54adbc627c3cef507542ae410bc8307db3bafd.jpg"
+      "image": "5e18e2d05f65c93d455a12fdcdd938500d8b01b1083665476caf8d6446c8fc52.webp"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -30,7 +30,7 @@
   },
   "101": {
     "inputs": {
-      "lora_name": "wan2.2_t2v_a14b-low lora mygirl_epoch10.safetensors",
+      "lora_name": "Wan_2_2_I2V_A14B_HIGH_lightx2v_4step_lora_v1030_rank_64_bf16.safetensors",
       "strength_model": 1.0000000000000002,
       "model": [
         "116",
@@ -39,12 +39,12 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Load LoRA"
+      "title": "HIGH Lora 1"
     }
   },
   "102": {
     "inputs": {
-      "lora_name": "wan2.2-t2v-14b-breless-high.safetensors",
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
       "strength_model": 1.0000000000000002,
       "model": [
         "117",
@@ -53,14 +53,14 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Load LoRA"
+      "title": "LOW Lora 1"
     }
   },
   "104": {
     "inputs": {
       "shift": 5.000000000000001,
       "model": [
-        "141",
+        "239",
         0
       ]
     },
@@ -71,7 +71,7 @@
   },
   "116": {
     "inputs": {
-      "model_name": "I2V/AniSora/Wan2_2-I2V_AniSoraV3_2_HIGH_14B_fp8_e4m3fn_scaled_KJ.safetensors",
+      "model_name": "Wan2_2-I2V-A14B-HIGH_fp8_e4m3fn_scaled_KJ.safetensors",
       "weight_dtype": "default",
       "compute_dtype": "default",
       "patch_cublaslinear": false,
@@ -85,7 +85,7 @@
   },
   "117": {
     "inputs": {
-      "model_name": "I2V/AniSora/Wan2_2-I2V_AniSoraV3_2_LOW_14B_fp8_e4m3fn_scaled_KJ.safetensors",
+      "model_name": "Wan2_2-I2V-A14B-LOW_fp8_e4m3fn_scaled_KJ.safetensors",
       "weight_dtype": "default",
       "compute_dtype": "default",
       "patch_cublaslinear": false,
@@ -152,7 +152,7 @@
   },
   "136": {
     "inputs": {
-      "width": 641,
+      "width": 640,
       "height": 640,
       "upscale_method": "lanczos",
       "keep_proportion": "crop",
@@ -172,21 +172,21 @@
   },
   "141": {
     "inputs": {
-      "lora_name": "wan-cumshot-I2V-22epo-k3nk.safetensors",
+      "lora_name": "SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
       "strength_model": 1,
       "model": [
-        "101",
+        "235",
         0
       ]
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Load LoRA"
+      "title": "HIGH Lora 3"
     }
   },
   "142": {
     "inputs": {
-      "lora_name": "wan-cumshot-I2V-22epo-k3nk.safetensors",
+      "lora_name": "SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
       "strength_model": 1,
       "model": [
         "102",
@@ -195,7 +195,7 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Load LoRA"
+      "title": "LOW Lora 2"
     }
   },
   "182": {
@@ -239,18 +239,18 @@
       "save_output": true,
       "no_preview": false,
       "images": [
-        "510",
+        "233",
         2
       ]
     },
     "class_type": "VHS_VideoCombine",
     "_meta": {
-      "title": "Video Combine 🎥🅥🅗🅢"
+      "title": "Video Combine \ud83c\udfa5\ud83c\udd65\ud83c\udd57\ud83c\udd62"
     }
   },
-  "212": {
+  "205": {
     "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
       "clip": [
         "84",
         0
@@ -261,21 +261,21 @@
       "title": "CLIP Text Encode (Prompt)"
     }
   },
-  "213": {
+  "206": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "142",
+        "244",
         0
       ],
       "positive": [
-        "218",
+        "211",
         0
       ],
       "negative": [
-        "218",
+        "211",
         1
       ]
     },
@@ -284,9 +284,9 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "214": {
+  "207": {
     "inputs": {
-      "text": "A woman sits at a desk reading a glowing book",
+      "text": "The girl draws a butterfly on the paper; the drawing begins to shimmer and lift off the page into 3D.",
       "clip": [
         "84",
         0
@@ -297,28 +297,28 @@
       "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
-  "215": {
+  "208": {
     "inputs": {},
     "class_type": "DisableNoise",
     "_meta": {
       "title": "DisableNoise"
     }
   },
-  "216": {
+  "209": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "141",
+        "239",
         0
       ],
       "positive": [
-        "218",
+        "211",
         0
       ],
       "negative": [
-        "218",
+        "211",
         1
       ]
     },
@@ -327,14 +327,14 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "217": {
+  "210": {
     "inputs": {
       "noise": [
         "189",
         0
       ],
       "guider": [
-        "216",
+        "209",
         0
       ],
       "sampler": [
@@ -346,7 +346,7 @@
         0
       ],
       "latent_image": [
-        "218",
+        "211",
         2
       ]
     },
@@ -355,16 +355,16 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "218": {
+  "211": {
     "inputs": {
-      "length": 201,
+      "length": 81,
       "motion_latent_count": 0,
       "positive": [
-        "214",
+        "207",
         0
       ],
       "negative": [
-        "212",
+        "205",
         0
       ],
       "anchor_samples": [
@@ -377,14 +377,14 @@
       "title": "Wan Image To Video SVIPro"
     }
   },
-  "219": {
+  "212": {
     "inputs": {
       "noise": [
-        "215",
+        "208",
         0
       ],
       "guider": [
-        "213",
+        "206",
         0
       ],
       "sampler": [
@@ -396,7 +396,7 @@
         1
       ],
       "latent_image": [
-        "217",
+        "210",
         0
       ]
     },
@@ -405,10 +405,10 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "220": {
+  "213": {
     "inputs": {
       "samples": [
-        "219",
+        "212",
         0
       ],
       "vae": [
@@ -421,10 +421,10 @@
       "title": "VAE Decode"
     }
   },
-  "221": {
+  "214": {
     "inputs": {
       "samples": [
-        "229",
+        "222",
         0
       ],
       "vae": [
@@ -437,16 +437,16 @@
       "title": "VAE Decode"
     }
   },
-  "222": {
+  "215": {
     "inputs": {
-      "length": 201,
+      "length": 81,
       "motion_latent_count": 1,
       "positive": [
-        "225",
+        "218",
         0
       ],
       "negative": [
-        "223",
+        "216",
         0
       ],
       "anchor_samples": [
@@ -454,7 +454,7 @@
         0
       ],
       "prev_samples": [
-        "219",
+        "212",
         0
       ]
     },
@@ -463,9 +463,9 @@
       "title": "Wan Image To Video SVIPro"
     }
   },
-  "223": {
+  "216": {
     "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
+      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
       "clip": [
         "84",
         0
@@ -476,21 +476,21 @@
       "title": "CLIP Text Encode (Prompt)"
     }
   },
-  "224": {
+  "217": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "142",
+        "244",
         0
       ],
       "positive": [
-        "222",
+        "215",
         0
       ],
       "negative": [
-        "222",
+        "215",
         1
       ]
     },
@@ -499,9 +499,9 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "225": {
+  "218": {
     "inputs": {
-      "text": "The pages of the book begin to flutter on their own",
+      "text": "The glowing butterfly flutters around the room as the girl laughs and tries to catch it with her hands.",
       "clip": [
         "84",
         0
@@ -512,11 +512,164 @@
       "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
-  "226": {
+  "219": {
     "inputs": {},
     "class_type": "DisableNoise",
     "_meta": {
       "title": "DisableNoise"
+    }
+  },
+  "220": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "239",
+        0
+      ],
+      "positive": [
+        "215",
+        0
+      ],
+      "negative": [
+        "215",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "221": {
+    "inputs": {
+      "noise": [
+        "182",
+        0
+      ],
+      "guider": [
+        "220",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        0
+      ],
+      "latent_image": [
+        "215",
+        2
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "222": {
+    "inputs": {
+      "noise": [
+        "219",
+        0
+      ],
+      "guider": [
+        "217",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        1
+      ],
+      "latent_image": [
+        "221",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "223": {
+    "inputs": {
+      "overlap": 5,
+      "overlap_side": "source",
+      "overlap_mode": "linear_blend",
+      "source_images": [
+        "213",
+        0
+      ],
+      "new_images": [
+        "214",
+        0
+      ]
+    },
+    "class_type": "ImageBatchExtendWithOverlap",
+    "_meta": {
+      "title": "Image Batch Extend With Overlap"
+    }
+  },
+  "224": {
+    "inputs": {
+      "samples": [
+        "232",
+        0
+      ],
+      "vae": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "225": {
+    "inputs": {
+      "length": 81,
+      "motion_latent_count": 1,
+      "positive": [
+        "228",
+        0
+      ],
+      "negative": [
+        "226",
+        0
+      ],
+      "anchor_samples": [
+        "135",
+        0
+      ],
+      "prev_samples": [
+        "222",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideoSVIPro",
+    "_meta": {
+      "title": "Wan Image To Video SVIPro"
+    }
+  },
+  "226": {
+    "inputs": {
+      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
     }
   },
   "227": {
@@ -525,15 +678,15 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "141",
+        "244",
         0
       ],
       "positive": [
-        "222",
+        "225",
         0
       ],
       "negative": [
-        "222",
+        "225",
         1
       ]
     },
@@ -544,8 +697,79 @@
   },
   "228": {
     "inputs": {
+      "text": "The butterfly gently lands on the girl\u2019s nose, turns back into a paper sketch, and she smiles, closing the book.",
+      "clip": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "229": {
+    "inputs": {},
+    "class_type": "DisableNoise",
+    "_meta": {
+      "title": "DisableNoise"
+    }
+  },
+  "230": {
+    "inputs": {
+      "cfg": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "model": [
+        "239",
+        0
+      ],
+      "positive": [
+        "225",
+        0
+      ],
+      "negative": [
+        "225",
+        1
+      ]
+    },
+    "class_type": "ScheduledCFGGuidance",
+    "_meta": {
+      "title": "Scheduled CFG Guidance"
+    }
+  },
+  "231": {
+    "inputs": {
       "noise": [
-        "182",
+        "199",
+        0
+      ],
+      "guider": [
+        "230",
+        0
+      ],
+      "sampler": [
+        "127",
+        0
+      ],
+      "sigmas": [
+        "128",
+        0
+      ],
+      "latent_image": [
+        "225",
+        2
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "232": {
+    "inputs": {
+      "noise": [
+        "229",
         0
       ],
       "guider": [
@@ -558,5551 +782,175 @@
       ],
       "sigmas": [
         "128",
-        0
-      ],
-      "latent_image": [
-        "222",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "229": {
-    "inputs": {
-      "noise": [
-        "226",
-        0
-      ],
-      "guider": [
-        "224",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
         1
       ],
       "latent_image": [
-        "228",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "230": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "220",
-        0
-      ],
-      "new_images": [
-        "221",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "231": {
-    "inputs": {
-      "samples": [
-        "239",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "232": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "235",
-        0
-      ],
-      "negative": [
-        "233",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "229",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "233": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "234": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "232",
-        0
-      ],
-      "negative": [
-        "232",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "235": {
-    "inputs": {
-      "text": "A small light emerges from the book floating upward",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "236": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "237": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "232",
-        0
-      ],
-      "negative": [
-        "232",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "238": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "237",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "232",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "239": {
-    "inputs": {
-      "noise": [
-        "236",
-        0
-      ],
-      "guider": [
-        "234",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "238",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "240": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "230",
-        2
-      ],
-      "new_images": [
         "231",
         0
       ]
     },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "233": {
+    "inputs": {
+      "overlap": 5,
+      "overlap_side": "source",
+      "overlap_mode": "linear_blend",
+      "source_images": [
+        "223",
+        2
+      ],
+      "new_images": [
+        "224",
+        0
+      ]
+    },
     "class_type": "ImageBatchExtendWithOverlap",
     "_meta": {
       "title": "Image Batch Extend With Overlap"
+    }
+  },
+  "235": {
+    "inputs": {
+      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise\uff081\uff09.safetensors",
+      "strength_model": 1,
+      "model": [
+        "101",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 2"
+    }
+  },
+  "236": {
+    "inputs": {
+      "lora_name": "wan-m4crom4sti4-i2v-106epo-k3nk.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "141",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 4"
+    }
+  },
+  "237": {
+    "inputs": {
+      "lora_name": "NSFW-22-H-e8.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "236",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 5"
+    }
+  },
+  "238": {
+    "inputs": {
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 0,
+      "model": [
+        "237",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 6"
+    }
+  },
+  "239": {
+    "inputs": {
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 0,
+      "model": [
+        "238",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 7"
+    }
+  },
+  "240": {
+    "inputs": {
+      "lora_name": "mql_doggy_a_t2v_v2_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "142",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LOW Lora 3"
     }
   },
   "241": {
     "inputs": {
-      "samples": [
-        "249",
-        0
-      ],
-      "vae": [
-        "90",
+      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "240",
         0
       ]
     },
-    "class_type": "VAEDecode",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "VAE Decode"
+      "title": "LOW Lora 4"
     }
   },
   "242": {
     "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "245",
-        0
-      ],
-      "negative": [
-        "243",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "239",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "243": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "244": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 0,
       "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "242",
-        0
-      ],
-      "negative": [
-        "242",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "245": {
-    "inputs": {
-      "text": "The light transforms into a glowing butterfly\"",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "246": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "247": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "242",
-        0
-      ],
-      "negative": [
-        "242",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "248": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "247",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "242",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "249": {
-    "inputs": {
-      "noise": [
-        "246",
-        0
-      ],
-      "guider": [
-        "244",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "248",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "250": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "240",
-        2
-      ],
-      "new_images": [
         "241",
         0
       ]
     },
-    "class_type": "ImageBatchExtendWithOverlap",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Image Batch Extend With Overlap"
+      "title": "LOW Lora 5"
     }
   },
-  "251": {
+  "243": {
     "inputs": {
-      "samples": [
-        "259",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "252": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "255",
-        0
-      ],
-      "negative": [
-        "253",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "249",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "253": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "254": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 0,
       "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "252",
-        0
-      ],
-      "negative": [
-        "252",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "255": {
-    "inputs": {
-      "text": "The butterfly flies around the room as she watches",
-      "clip": [
-        "84",
+        "242",
         0
       ]
     },
-    "class_type": "CLIPTextEncode",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
+      "title": "LOW Lora 6"
     }
   },
-  "256": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "257": {
+  "244": {
     "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
+      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
+      "strength_model": 0,
       "model": [
-        "141",
+        "243",
         0
-      ],
-      "positive": [
-        "252",
-        0
-      ],
-      "negative": [
-        "252",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "258": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "257",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "252",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "259": {
-    "inputs": {
-      "noise": [
-        "256",
-        0
-      ],
-      "guider": [
-        "254",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "258",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "260": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "250",
-        2
-      ],
-      "new_images": [
-        "251",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "261": {
-    "inputs": {
-      "samples": [
-        "269",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "262": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "265",
-        0
-      ],
-      "negative": [
-        "263",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "259",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "263": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "264": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "262",
-        0
-      ],
-      "negative": [
-        "262",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "265": {
-    "inputs": {
-      "text": "She reaches out her hand toward the butterfly",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "266": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "267": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "262",
-        0
-      ],
-      "negative": [
-        "262",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "268": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "267",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "262",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "269": {
-    "inputs": {
-      "noise": [
-        "266",
-        0
-      ],
-      "guider": [
-        "264",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "268",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "270": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "260",
-        2
-      ],
-      "new_images": [
-        "261",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "271": {
-    "inputs": {
-      "samples": [
-        "279",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "272": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "275",
-        0
-      ],
-      "negative": [
-        "273",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "269",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "273": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "274": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "272",
-        0
-      ],
-      "negative": [
-        "272",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "275": {
-    "inputs": {
-      "text": " The butterfly lands gently on her fingertip",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "276": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "277": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "272",
-        0
-      ],
-      "negative": [
-        "272",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "278": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "277",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "272",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "279": {
-    "inputs": {
-      "noise": [
-        "276",
-        0
-      ],
-      "guider": [
-        "274",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "278",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "280": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "270",
-        2
-      ],
-      "new_images": [
-        "271",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "281": {
-    "inputs": {
-      "samples": [
-        "289",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "282": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "285",
-        0
-      ],
-      "negative": [
-        "283",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "279",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "283": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "284": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "282",
-        0
-      ],
-      "negative": [
-        "282",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "285": {
-    "inputs": {
-      "text": "She walks to the window holding the butterfly",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "286": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "287": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "282",
-        0
-      ],
-      "negative": [
-        "282",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "288": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "287",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "282",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "289": {
-    "inputs": {
-      "noise": [
-        "286",
-        0
-      ],
-      "guider": [
-        "284",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "288",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "290": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "280",
-        2
-      ],
-      "new_images": [
-        "281",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "291": {
-    "inputs": {
-      "samples": [
-        "299",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "292": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "295",
-        0
-      ],
-      "negative": [
-        "293",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "289",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "293": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "294": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "292",
-        0
-      ],
-      "negative": [
-        "292",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "295": {
-    "inputs": {
-      "text": " She opens the window and the butterfly hovers at the edge",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "296": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "297": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "292",
-        0
-      ],
-      "negative": [
-        "292",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "298": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "297",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "292",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "299": {
-    "inputs": {
-      "noise": [
-        "296",
-        0
-      ],
-      "guider": [
-        "294",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "298",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "300": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "290",
-        2
-      ],
-      "new_images": [
-        "291",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "301": {
-    "inputs": {
-      "samples": [
-        "309",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "302": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "305",
-        0
-      ],
-      "negative": [
-        "303",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "299",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "303": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "304": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "302",
-        0
-      ],
-      "negative": [
-        "302",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "305": {
-    "inputs": {
-      "text": "The butterfly flies out into golden sunlight and she smiles",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "306": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "307": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "302",
-        0
-      ],
-      "negative": [
-        "302",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "308": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "307",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "302",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "309": {
-    "inputs": {
-      "noise": [
-        "306",
-        0
-      ],
-      "guider": [
-        "304",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "308",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "310": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "300",
-        2
-      ],
-      "new_images": [
-        "301",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "311": {
-    "inputs": {
-      "samples": [
-        "319",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "312": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "315",
-        0
-      ],
-      "negative": [
-        "313",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "309",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "313": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "314": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "312",
-        0
-      ],
-      "negative": [
-        "312",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "315": {
-    "inputs": {
-      "text": "[Scene 11] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "316": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "317": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "312",
-        0
-      ],
-      "negative": [
-        "312",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "318": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "317",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "312",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "319": {
-    "inputs": {
-      "noise": [
-        "316",
-        0
-      ],
-      "guider": [
-        "314",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "318",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "320": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "310",
-        2
-      ],
-      "new_images": [
-        "311",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "321": {
-    "inputs": {
-      "samples": [
-        "329",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "322": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "325",
-        0
-      ],
-      "negative": [
-        "323",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "319",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "323": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "324": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "322",
-        0
-      ],
-      "negative": [
-        "322",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "325": {
-    "inputs": {
-      "text": "[Scene 12] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "326": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "327": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "322",
-        0
-      ],
-      "negative": [
-        "322",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "328": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "327",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "322",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "329": {
-    "inputs": {
-      "noise": [
-        "326",
-        0
-      ],
-      "guider": [
-        "324",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "328",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "330": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "320",
-        2
-      ],
-      "new_images": [
-        "321",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "331": {
-    "inputs": {
-      "samples": [
-        "339",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "332": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "335",
-        0
-      ],
-      "negative": [
-        "333",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "329",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "333": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "334": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "332",
-        0
-      ],
-      "negative": [
-        "332",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "335": {
-    "inputs": {
-      "text": "[Scene 13] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "336": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "337": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "332",
-        0
-      ],
-      "negative": [
-        "332",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "338": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "337",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "332",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "339": {
-    "inputs": {
-      "noise": [
-        "336",
-        0
-      ],
-      "guider": [
-        "334",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "338",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "340": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "330",
-        2
-      ],
-      "new_images": [
-        "331",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "341": {
-    "inputs": {
-      "samples": [
-        "349",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "342": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "345",
-        0
-      ],
-      "negative": [
-        "343",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "339",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "343": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "344": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "342",
-        0
-      ],
-      "negative": [
-        "342",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "345": {
-    "inputs": {
-      "text": "[Scene 14] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "346": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "347": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "342",
-        0
-      ],
-      "negative": [
-        "342",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "348": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "347",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "342",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "349": {
-    "inputs": {
-      "noise": [
-        "346",
-        0
-      ],
-      "guider": [
-        "344",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "348",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "350": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "340",
-        2
-      ],
-      "new_images": [
-        "341",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "351": {
-    "inputs": {
-      "samples": [
-        "359",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "352": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "355",
-        0
-      ],
-      "negative": [
-        "353",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "349",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "353": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "354": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "352",
-        0
-      ],
-      "negative": [
-        "352",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "355": {
-    "inputs": {
-      "text": "[Scene 15] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "356": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "357": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "352",
-        0
-      ],
-      "negative": [
-        "352",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "358": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "357",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "352",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "359": {
-    "inputs": {
-      "noise": [
-        "356",
-        0
-      ],
-      "guider": [
-        "354",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "358",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "360": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "350",
-        2
-      ],
-      "new_images": [
-        "351",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "361": {
-    "inputs": {
-      "samples": [
-        "369",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "362": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "365",
-        0
-      ],
-      "negative": [
-        "363",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "359",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "363": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "364": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "362",
-        0
-      ],
-      "negative": [
-        "362",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "365": {
-    "inputs": {
-      "text": "[Scene 16] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "366": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "367": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "362",
-        0
-      ],
-      "negative": [
-        "362",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "368": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "367",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "362",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "369": {
-    "inputs": {
-      "noise": [
-        "366",
-        0
-      ],
-      "guider": [
-        "364",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "368",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "370": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "360",
-        2
-      ],
-      "new_images": [
-        "361",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "371": {
-    "inputs": {
-      "samples": [
-        "379",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "372": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "375",
-        0
-      ],
-      "negative": [
-        "373",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "369",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "373": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "374": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "372",
-        0
-      ],
-      "negative": [
-        "372",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "375": {
-    "inputs": {
-      "text": "[Scene 17] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "376": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "377": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "372",
-        0
-      ],
-      "negative": [
-        "372",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "378": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "377",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "372",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "379": {
-    "inputs": {
-      "noise": [
-        "376",
-        0
-      ],
-      "guider": [
-        "374",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "378",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "380": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "370",
-        2
-      ],
-      "new_images": [
-        "371",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "381": {
-    "inputs": {
-      "samples": [
-        "389",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "382": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "385",
-        0
-      ],
-      "negative": [
-        "383",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "379",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "383": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "384": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "382",
-        0
-      ],
-      "negative": [
-        "382",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "385": {
-    "inputs": {
-      "text": "[Scene 18] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "386": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "387": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "382",
-        0
-      ],
-      "negative": [
-        "382",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "388": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "387",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "382",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "389": {
-    "inputs": {
-      "noise": [
-        "386",
-        0
-      ],
-      "guider": [
-        "384",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "388",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "390": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "380",
-        2
-      ],
-      "new_images": [
-        "381",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "391": {
-    "inputs": {
-      "samples": [
-        "399",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "392": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "395",
-        0
-      ],
-      "negative": [
-        "393",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "389",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "393": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "394": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "392",
-        0
-      ],
-      "negative": [
-        "392",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "395": {
-    "inputs": {
-      "text": "[Scene 19] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "396": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "397": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "392",
-        0
-      ],
-      "negative": [
-        "392",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "398": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "397",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "392",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "399": {
-    "inputs": {
-      "noise": [
-        "396",
-        0
-      ],
-      "guider": [
-        "394",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "398",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "400": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "390",
-        2
-      ],
-      "new_images": [
-        "391",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "401": {
-    "inputs": {
-      "samples": [
-        "409",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "402": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "405",
-        0
-      ],
-      "negative": [
-        "403",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "399",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "403": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "404": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "402",
-        0
-      ],
-      "negative": [
-        "402",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "405": {
-    "inputs": {
-      "text": "[Scene 20] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "406": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "407": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "402",
-        0
-      ],
-      "negative": [
-        "402",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "408": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "407",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "402",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "409": {
-    "inputs": {
-      "noise": [
-        "406",
-        0
-      ],
-      "guider": [
-        "404",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "408",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "410": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "400",
-        2
-      ],
-      "new_images": [
-        "401",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "411": {
-    "inputs": {
-      "samples": [
-        "419",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "412": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "415",
-        0
-      ],
-      "negative": [
-        "413",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "409",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "413": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "414": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "412",
-        0
-      ],
-      "negative": [
-        "412",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "415": {
-    "inputs": {
-      "text": "[Scene 21] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "416": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "417": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "412",
-        0
-      ],
-      "negative": [
-        "412",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "418": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "417",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "412",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "419": {
-    "inputs": {
-      "noise": [
-        "416",
-        0
-      ],
-      "guider": [
-        "414",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "418",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "420": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "410",
-        2
-      ],
-      "new_images": [
-        "411",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "421": {
-    "inputs": {
-      "samples": [
-        "429",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "422": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "425",
-        0
-      ],
-      "negative": [
-        "423",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "419",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "423": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "424": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "422",
-        0
-      ],
-      "negative": [
-        "422",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "425": {
-    "inputs": {
-      "text": "[Scene 22] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "426": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "427": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "422",
-        0
-      ],
-      "negative": [
-        "422",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "428": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "427",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "422",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "429": {
-    "inputs": {
-      "noise": [
-        "426",
-        0
-      ],
-      "guider": [
-        "424",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "428",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "430": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "420",
-        2
-      ],
-      "new_images": [
-        "421",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "431": {
-    "inputs": {
-      "samples": [
-        "439",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "432": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "435",
-        0
-      ],
-      "negative": [
-        "433",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "429",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "433": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "434": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "432",
-        0
-      ],
-      "negative": [
-        "432",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "435": {
-    "inputs": {
-      "text": "[Scene 23] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "436": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "437": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "432",
-        0
-      ],
-      "negative": [
-        "432",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "438": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "437",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "432",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "439": {
-    "inputs": {
-      "noise": [
-        "436",
-        0
-      ],
-      "guider": [
-        "434",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "438",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "440": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "430",
-        2
-      ],
-      "new_images": [
-        "431",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "441": {
-    "inputs": {
-      "samples": [
-        "449",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "442": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "445",
-        0
-      ],
-      "negative": [
-        "443",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "439",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "443": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "444": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "442",
-        0
-      ],
-      "negative": [
-        "442",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "445": {
-    "inputs": {
-      "text": "[Scene 24] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "446": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "447": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "442",
-        0
-      ],
-      "negative": [
-        "442",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "448": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "447",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "442",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "449": {
-    "inputs": {
-      "noise": [
-        "446",
-        0
-      ],
-      "guider": [
-        "444",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "448",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "450": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "440",
-        2
-      ],
-      "new_images": [
-        "441",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "451": {
-    "inputs": {
-      "samples": [
-        "459",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "452": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "455",
-        0
-      ],
-      "negative": [
-        "453",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "449",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "453": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "454": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "452",
-        0
-      ],
-      "negative": [
-        "452",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "455": {
-    "inputs": {
-      "text": "[Scene 25] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "456": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "457": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "452",
-        0
-      ],
-      "negative": [
-        "452",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "458": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "457",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "452",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "459": {
-    "inputs": {
-      "noise": [
-        "456",
-        0
-      ],
-      "guider": [
-        "454",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "458",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "460": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "450",
-        2
-      ],
-      "new_images": [
-        "451",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "461": {
-    "inputs": {
-      "samples": [
-        "469",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "462": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "465",
-        0
-      ],
-      "negative": [
-        "463",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "459",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "463": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "464": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "462",
-        0
-      ],
-      "negative": [
-        "462",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "465": {
-    "inputs": {
-      "text": "[Scene 26] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "466": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "467": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "462",
-        0
-      ],
-      "negative": [
-        "462",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "468": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "467",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "462",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "469": {
-    "inputs": {
-      "noise": [
-        "466",
-        0
-      ],
-      "guider": [
-        "464",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "468",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "470": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "460",
-        2
-      ],
-      "new_images": [
-        "461",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "471": {
-    "inputs": {
-      "samples": [
-        "479",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "472": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "475",
-        0
-      ],
-      "negative": [
-        "473",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "469",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "473": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "474": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "472",
-        0
-      ],
-      "negative": [
-        "472",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "475": {
-    "inputs": {
-      "text": "[Scene 27] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "476": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "477": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "472",
-        0
-      ],
-      "negative": [
-        "472",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "478": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "477",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "472",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "479": {
-    "inputs": {
-      "noise": [
-        "476",
-        0
-      ],
-      "guider": [
-        "474",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "478",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "480": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "470",
-        2
-      ],
-      "new_images": [
-        "471",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "481": {
-    "inputs": {
-      "samples": [
-        "489",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "482": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "485",
-        0
-      ],
-      "negative": [
-        "483",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "479",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "483": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "484": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "482",
-        0
-      ],
-      "negative": [
-        "482",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "485": {
-    "inputs": {
-      "text": "[Scene 28] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "486": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "487": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "482",
-        0
-      ],
-      "negative": [
-        "482",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "488": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "487",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "482",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "489": {
-    "inputs": {
-      "noise": [
-        "486",
-        0
-      ],
-      "guider": [
-        "484",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "488",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "490": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "480",
-        2
-      ],
-      "new_images": [
-        "481",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "491": {
-    "inputs": {
-      "samples": [
-        "499",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "492": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "495",
-        0
-      ],
-      "negative": [
-        "493",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "489",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "493": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "494": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "492",
-        0
-      ],
-      "negative": [
-        "492",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "495": {
-    "inputs": {
-      "text": "[Scene 29] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "496": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "497": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "492",
-        0
-      ],
-      "negative": [
-        "492",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "498": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "497",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "492",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "499": {
-    "inputs": {
-      "noise": [
-        "496",
-        0
-      ],
-      "guider": [
-        "494",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "498",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "500": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "490",
-        2
-      ],
-      "new_images": [
-        "491",
-        0
-      ]
-    },
-    "class_type": "ImageBatchExtendWithOverlap",
-    "_meta": {
-      "title": "Image Batch Extend With Overlap"
-    }
-  },
-  "501": {
-    "inputs": {
-      "samples": [
-        "509",
-        0
-      ],
-      "vae": [
-        "90",
-        0
-      ]
-    },
-    "class_type": "VAEDecode",
-    "_meta": {
-      "title": "VAE Decode"
-    }
-  },
-  "502": {
-    "inputs": {
-      "length": 201,
-      "motion_latent_count": 1,
-      "positive": [
-        "505",
-        0
-      ],
-      "negative": [
-        "503",
-        0
-      ],
-      "anchor_samples": [
-        "135",
-        0
-      ],
-      "prev_samples": [
-        "499",
-        0
-      ]
-    },
-    "class_type": "WanImageToVideoSVIPro",
-    "_meta": {
-      "title": "Wan Image To Video SVIPro"
-    }
-  },
-  "503": {
-    "inputs": {
-      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Prompt)"
-    }
-  },
-  "504": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "142",
-        0
-      ],
-      "positive": [
-        "502",
-        0
-      ],
-      "negative": [
-        "502",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "505": {
-    "inputs": {
-      "text": "[Scene 30] Continue the action from the previous scene - describe what happens here",
-      "clip": [
-        "84",
-        0
-      ]
-    },
-    "class_type": "CLIPTextEncode",
-    "_meta": {
-      "title": "CLIP Text Encode (Positive Prompt)"
-    }
-  },
-  "506": {
-    "inputs": {},
-    "class_type": "DisableNoise",
-    "_meta": {
-      "title": "DisableNoise"
-    }
-  },
-  "507": {
-    "inputs": {
-      "cfg": 1,
-      "start_percent": 0,
-      "end_percent": 1,
-      "model": [
-        "141",
-        0
-      ],
-      "positive": [
-        "502",
-        0
-      ],
-      "negative": [
-        "502",
-        1
-      ]
-    },
-    "class_type": "ScheduledCFGGuidance",
-    "_meta": {
-      "title": "Scheduled CFG Guidance"
-    }
-  },
-  "508": {
-    "inputs": {
-      "noise": [
-        "199",
-        0
-      ],
-      "guider": [
-        "507",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        0
-      ],
-      "latent_image": [
-        "502",
-        2
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "509": {
-    "inputs": {
-      "noise": [
-        "506",
-        0
-      ],
-      "guider": [
-        "504",
-        0
-      ],
-      "sampler": [
-        "127",
-        0
-      ],
-      "sigmas": [
-        "128",
-        1
-      ],
-      "latent_image": [
-        "508",
-        0
-      ]
-    },
-    "class_type": "SamplerCustomAdvanced",
-    "_meta": {
-      "title": "SamplerCustomAdvanced"
-    }
-  },
-  "510": {
-    "inputs": {
-      "overlap": 5,
-      "overlap_side": "source",
-      "overlap_mode": "linear_blend",
-      "source_images": [
-        "500",
-        2
-      ],
-      "new_images": [
-        "501",
-        0
       ]
     },
-    "class_type": "ImageBatchExtendWithOverlap",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "Image Batch Extend With Overlap"
+      "title": "LOW Lora 7"
     }
   }
 }
