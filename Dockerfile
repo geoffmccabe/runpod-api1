@@ -1,4 +1,3 @@
-# --- VAE ---
 ARG BASE_IMAGE=nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
 FROM ${BASE_IMAGE} AS base
 
@@ -158,6 +157,39 @@ RUN BACKOFFS="10 20 30 60 90" && for i in 1 2 3 4 5; do \
       --url 'https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/LoRAs/Stable-Video-Infinity/v2.0/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors' \
       --relative-path models/loras \
       --filename 'SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors' && break; \
+    if [ $i -eq 5 ]; then echo "model-download failed" >&2; exit 1; fi; \
+    SLEEP=$(echo $BACKOFFS | cut -d ' ' -f $i); sleep $SLEEP; done
+
+# --- NEW LORAS (added for HIGH Lora 4/5, LOW Lora 3/4) ---
+RUN BACKOFFS="10 20 30 60 90" && for i in 1 2 3 4 5; do \
+    comfy --workspace /comfyui model download \
+      --url 'https://huggingface.co/buckets/KKKONNK/used123/resolve/wan-m4crom4sti4-i2v-106epo-k3nk.safetensors?download=true' \
+      --relative-path models/loras \
+      --filename 'wan-m4crom4sti4-i2v-106epo-k3nk.safetensors' && break; \
+    if [ $i -eq 5 ]; then echo "model-download failed" >&2; exit 1; fi; \
+    SLEEP=$(echo $BACKOFFS | cut -d ' ' -f $i); sleep $SLEEP; done
+
+RUN BACKOFFS="10 20 30 60 90" && for i in 1 2 3 4 5; do \
+    comfy --workspace /comfyui model download \
+      --url 'https://huggingface.co/buckets/KKKONNK/used123/resolve/NSFW-22-H-e8.safetensors?download=true' \
+      --relative-path models/loras \
+      --filename 'NSFW-22-H-e8.safetensors' && break; \
+    if [ $i -eq 5 ]; then echo "model-download failed" >&2; exit 1; fi; \
+    SLEEP=$(echo $BACKOFFS | cut -d ' ' -f $i); sleep $SLEEP; done
+
+RUN BACKOFFS="10 20 30 60 90" && for i in 1 2 3 4 5; do \
+    comfy --workspace /comfyui model download \
+      --url 'https://huggingface.co/buckets/KKKONNK/used123/resolve/mql_doggy_a_t2v_v2_low_noise.safetensors?download=true' \
+      --relative-path models/loras \
+      --filename 'mql_doggy_a_t2v_v2_low_noise.safetensors' && break; \
+    if [ $i -eq 5 ]; then echo "model-download failed" >&2; exit 1; fi; \
+    SLEEP=$(echo $BACKOFFS | cut -d ' ' -f $i); sleep $SLEEP; done
+
+RUN BACKOFFS="10 20 30 60 90" && for i in 1 2 3 4 5; do \
+    comfy --workspace /comfyui model download \
+      --url 'https://huggingface.co/buckets/KKKONNK/used123/resolve/Pornmaster_wan%202.2_14b_I2V_bukkake_v1.4_low_noise.safetensors?download=true' \
+      --relative-path models/loras \
+      --filename 'Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors' && break; \
     if [ $i -eq 5 ]; then echo "model-download failed" >&2; exit 1; fi; \
     SLEEP=$(echo $BACKOFFS | cut -d ' ' -f $i); sleep $SLEEP; done
 
