@@ -2,7 +2,7 @@
   "84": {
     "inputs": {
       "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
-      "type": "lumina2",
+      "type": "wan",
       "device": "default"
     },
     "class_type": "CLIPLoader",
@@ -21,7 +21,7 @@
   },
   "97": {
     "inputs": {
-      "image": "5e18e2d05f65c93d455a12fdcdd938500d8b01b1083665476caf8d6446c8fc52.webp"
+      "image": "Gemini_Generated_Image_jk7o1njk7o1njk7o.png"
     },
     "class_type": "LoadImage",
     "_meta": {
@@ -39,7 +39,7 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "HIGH Lora 1"
+      "title": "Load LoRA"
     }
   },
   "102": {
@@ -53,14 +53,14 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "LOW Lora 1"
+      "title": "Load LoRA"
     }
   },
   "104": {
     "inputs": {
       "shift": 5.000000000000001,
       "model": [
-        "239",
+        "1002",
         0
       ]
     },
@@ -175,13 +175,13 @@
       "lora_name": "SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
       "strength_model": 1,
       "model": [
-        "235",
+        "101",
         0
       ]
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "HIGH Lora 3"
+      "title": "Load LoRA"
     }
   },
   "142": {
@@ -195,7 +195,7 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "LOW Lora 2"
+      "title": "Load LoRA"
     }
   },
   "182": {
@@ -237,20 +237,19 @@
       "trim_to_audio": false,
       "pingpong": false,
       "save_output": true,
-      "no_preview": false,
       "images": [
-        "233",
+        "203:227",
         2
       ]
     },
     "class_type": "VHS_VideoCombine",
     "_meta": {
-      "title": "Video Combine \ud83c\udfa5\ud83c\udd65\ud83c\udd57\ud83c\udd62"
+      "title": "Video Combine"
     }
   },
-  "205": {
+  "193:209": {
     "inputs": {
-      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
       "clip": [
         "84",
         0
@@ -261,21 +260,21 @@
       "title": "CLIP Text Encode (Prompt)"
     }
   },
-  "206": {
+  "193:210": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "244",
+        "1004",
         0
       ],
       "positive": [
-        "211",
+        "193:215",
         0
       ],
       "negative": [
-        "211",
+        "193:215",
         1
       ]
     },
@@ -284,7 +283,7 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "207": {
+  "193:211": {
     "inputs": {
       "text": "The girl draws a butterfly on the paper; the drawing begins to shimmer and lift off the page into 3D.",
       "clip": [
@@ -297,28 +296,28 @@
       "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
-  "208": {
+  "193:212": {
     "inputs": {},
     "class_type": "DisableNoise",
     "_meta": {
       "title": "DisableNoise"
     }
   },
-  "209": {
+  "193:213": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "239",
+        "1002",
         0
       ],
       "positive": [
-        "211",
+        "193:215",
         0
       ],
       "negative": [
-        "211",
+        "193:215",
         1
       ]
     },
@@ -327,14 +326,14 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "210": {
+  "193:214": {
     "inputs": {
       "noise": [
         "189",
         0
       ],
       "guider": [
-        "209",
+        "193:213",
         0
       ],
       "sampler": [
@@ -346,7 +345,7 @@
         0
       ],
       "latent_image": [
-        "211",
+        "193:215",
         2
       ]
     },
@@ -355,16 +354,16 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "211": {
+  "193:215": {
     "inputs": {
       "length": 81,
       "motion_latent_count": 0,
       "positive": [
-        "207",
+        "193:211",
         0
       ],
       "negative": [
-        "205",
+        "193:209",
         0
       ],
       "anchor_samples": [
@@ -374,17 +373,17 @@
     },
     "class_type": "WanImageToVideoSVIPro",
     "_meta": {
-      "title": "Wan Image To Video SVIPro"
+      "title": "WanImageToVideoSVIPro"
     }
   },
-  "212": {
+  "193:216": {
     "inputs": {
       "noise": [
-        "208",
+        "193:212",
         0
       ],
       "guider": [
-        "206",
+        "193:210",
         0
       ],
       "sampler": [
@@ -396,7 +395,7 @@
         1
       ],
       "latent_image": [
-        "210",
+        "193:214",
         0
       ]
     },
@@ -405,10 +404,10 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "213": {
+  "193:217": {
     "inputs": {
       "samples": [
-        "212",
+        "193:216",
         0
       ],
       "vae": [
@@ -421,10 +420,10 @@
       "title": "VAE Decode"
     }
   },
-  "214": {
+  "181:162": {
     "inputs": {
       "samples": [
-        "222",
+        "181:208",
         0
       ],
       "vae": [
@@ -437,16 +436,16 @@
       "title": "VAE Decode"
     }
   },
-  "215": {
+  "181:160": {
     "inputs": {
       "length": 81,
       "motion_latent_count": 1,
       "positive": [
-        "218",
+        "181:152",
         0
       ],
       "negative": [
-        "216",
+        "181:206",
         0
       ],
       "anchor_samples": [
@@ -454,18 +453,18 @@
         0
       ],
       "prev_samples": [
-        "212",
+        "193:216",
         0
       ]
     },
     "class_type": "WanImageToVideoSVIPro",
     "_meta": {
-      "title": "Wan Image To Video SVIPro"
+      "title": "WanImageToVideoSVIPro"
     }
   },
-  "216": {
+  "181:206": {
     "inputs": {
-      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
       "clip": [
         "84",
         0
@@ -476,21 +475,21 @@
       "title": "CLIP Text Encode (Prompt)"
     }
   },
-  "217": {
+  "181:159": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "244",
+        "1004",
         0
       ],
       "positive": [
-        "215",
+        "181:160",
         0
       ],
       "negative": [
-        "215",
+        "181:160",
         1
       ]
     },
@@ -499,7 +498,7 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "218": {
+  "181:152": {
     "inputs": {
       "text": "The glowing butterfly flutters around the room as the girl laughs and tries to catch it with her hands.",
       "clip": [
@@ -512,28 +511,28 @@
       "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
-  "219": {
+  "181:183": {
     "inputs": {},
     "class_type": "DisableNoise",
     "_meta": {
       "title": "DisableNoise"
     }
   },
-  "220": {
+  "181:158": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "239",
+        "1002",
         0
       ],
       "positive": [
-        "215",
+        "181:160",
         0
       ],
       "negative": [
-        "215",
+        "181:160",
         1
       ]
     },
@@ -542,14 +541,14 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "221": {
+  "181:207": {
     "inputs": {
       "noise": [
         "182",
         0
       ],
       "guider": [
-        "220",
+        "181:158",
         0
       ],
       "sampler": [
@@ -561,7 +560,7 @@
         0
       ],
       "latent_image": [
-        "215",
+        "181:160",
         2
       ]
     },
@@ -570,14 +569,14 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "222": {
+  "181:208": {
     "inputs": {
       "noise": [
-        "219",
+        "181:183",
         0
       ],
       "guider": [
-        "217",
+        "181:159",
         0
       ],
       "sampler": [
@@ -589,7 +588,7 @@
         1
       ],
       "latent_image": [
-        "221",
+        "181:207",
         0
       ]
     },
@@ -598,17 +597,17 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "223": {
+  "181:168": {
     "inputs": {
       "overlap": 5,
       "overlap_side": "source",
       "overlap_mode": "linear_blend",
       "source_images": [
-        "213",
+        "193:217",
         0
       ],
       "new_images": [
-        "214",
+        "181:162",
         0
       ]
     },
@@ -617,10 +616,10 @@
       "title": "Image Batch Extend With Overlap"
     }
   },
-  "224": {
+  "203:218": {
     "inputs": {
       "samples": [
-        "232",
+        "203:226",
         0
       ],
       "vae": [
@@ -633,16 +632,16 @@
       "title": "VAE Decode"
     }
   },
-  "225": {
+  "203:219": {
     "inputs": {
       "length": 81,
       "motion_latent_count": 1,
       "positive": [
-        "228",
+        "203:222",
         0
       ],
       "negative": [
-        "226",
+        "203:220",
         0
       ],
       "anchor_samples": [
@@ -650,18 +649,18 @@
         0
       ],
       "prev_samples": [
-        "222",
+        "181:208",
         0
       ]
     },
     "class_type": "WanImageToVideoSVIPro",
     "_meta": {
-      "title": "Wan Image To Video SVIPro"
+      "title": "WanImageToVideoSVIPro"
     }
   },
-  "226": {
+  "203:220": {
     "inputs": {
-      "text": "\u8272\u8c03\u8273\u4e3d\uff0c\u8fc7\u66dd\uff0c\u9759\u6001\uff0c\u7ec6\u8282\u6a21\u7cca\u4e0d\u6e05\uff0c\u5b57\u5e55\uff0c\u98ce\u683c\uff0c\u4f5c\u54c1\uff0c\u753b\u4f5c\uff0c\u753b\u9762\uff0c\u9759\u6b62\uff0c\u6574\u4f53\u53d1\u7070\uff0c\u6700\u5dee\u8d28\u91cf\uff0c\u4f4e\u8d28\u91cf\uff0cJPEG\u538b\u7f29\u6b8b\u7559\uff0c\u4e11\u964b\u7684\uff0c\u6b8b\u7f3a\u7684\uff0c\u591a\u4f59\u7684\u624b\u6307\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u624b\u90e8\uff0c\u753b\u5f97\u4e0d\u597d\u7684\u8138\u90e8\uff0c\u7578\u5f62\u7684\uff0c\u6bc1\u5bb9\u7684\uff0c\u5f62\u6001\u7578\u5f62\u7684\u80a2\u4f53\uff0c\u624b\u6307\u878d\u5408\uff0c\u9759\u6b62\u4e0d\u52a8\u7684\u753b\u9762\uff0c\u6742\u4e71\u7684\u80cc\u666f\uff0c\u4e09\u6761\u817f\uff0c\u80cc\u666f\u4eba\u5f88\u591a\uff0c\u5012\u7740\u8d70",
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走",
       "clip": [
         "84",
         0
@@ -672,21 +671,21 @@
       "title": "CLIP Text Encode (Prompt)"
     }
   },
-  "227": {
+  "203:221": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "244",
+        "1004",
         0
       ],
       "positive": [
-        "225",
+        "203:219",
         0
       ],
       "negative": [
-        "225",
+        "203:219",
         1
       ]
     },
@@ -695,9 +694,9 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "228": {
+  "203:222": {
     "inputs": {
-      "text": "The butterfly gently lands on the girl\u2019s nose, turns back into a paper sketch, and she smiles, closing the book.",
+      "text": "The butterfly gently lands on the girl’s nose, turns back into a paper sketch, and she smiles, closing the book.",
       "clip": [
         "84",
         0
@@ -708,28 +707,28 @@
       "title": "CLIP Text Encode (Positive Prompt)"
     }
   },
-  "229": {
+  "203:223": {
     "inputs": {},
     "class_type": "DisableNoise",
     "_meta": {
       "title": "DisableNoise"
     }
   },
-  "230": {
+  "203:224": {
     "inputs": {
       "cfg": 1,
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "239",
+        "1002",
         0
       ],
       "positive": [
-        "225",
+        "203:219",
         0
       ],
       "negative": [
-        "225",
+        "203:219",
         1
       ]
     },
@@ -738,14 +737,14 @@
       "title": "Scheduled CFG Guidance"
     }
   },
-  "231": {
+  "203:225": {
     "inputs": {
       "noise": [
         "199",
         0
       ],
       "guider": [
-        "230",
+        "203:224",
         0
       ],
       "sampler": [
@@ -757,7 +756,7 @@
         0
       ],
       "latent_image": [
-        "225",
+        "203:219",
         2
       ]
     },
@@ -766,14 +765,14 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "232": {
+  "203:226": {
     "inputs": {
       "noise": [
-        "229",
+        "203:223",
         0
       ],
       "guider": [
-        "227",
+        "203:221",
         0
       ],
       "sampler": [
@@ -785,7 +784,7 @@
         1
       ],
       "latent_image": [
-        "231",
+        "203:225",
         0
       ]
     },
@@ -794,17 +793,17 @@
       "title": "SamplerCustomAdvanced"
     }
   },
-  "233": {
+  "203:227": {
     "inputs": {
       "overlap": 5,
       "overlap_side": "source",
       "overlap_mode": "linear_blend",
       "source_images": [
-        "223",
+        "181:168",
         2
       ],
       "new_images": [
-        "224",
+        "203:218",
         0
       ]
     },
@@ -813,21 +812,7 @@
       "title": "Image Batch Extend With Overlap"
     }
   },
-  "235": {
-    "inputs": {
-      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise\uff081\uff09.safetensors",
-      "strength_model": 1,
-      "model": [
-        "101",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "HIGH Lora 2"
-    }
-  },
-  "236": {
+  "1001": {
     "inputs": {
       "lora_name": "wan-m4crom4sti4-i2v-106epo-k3nk.safetensors",
       "strength_model": 1.0,
@@ -841,12 +826,12 @@
       "title": "HIGH Lora 4"
     }
   },
-  "237": {
+  "1002": {
     "inputs": {
       "lora_name": "NSFW-22-H-e8.safetensors",
       "strength_model": 1.0,
       "model": [
-        "236",
+        "1001",
         0
       ]
     },
@@ -855,35 +840,7 @@
       "title": "HIGH Lora 5"
     }
   },
-  "238": {
-    "inputs": {
-      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
-      "strength_model": 0,
-      "model": [
-        "237",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "HIGH Lora 6"
-    }
-  },
-  "239": {
-    "inputs": {
-      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
-      "strength_model": 0,
-      "model": [
-        "238",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "HIGH Lora 7"
-    }
-  },
-  "240": {
+  "1003": {
     "inputs": {
       "lora_name": "mql_doggy_a_t2v_v2_low_noise.safetensors",
       "strength_model": 1.0,
@@ -897,60 +854,18 @@
       "title": "LOW Lora 3"
     }
   },
-  "241": {
+  "1004": {
     "inputs": {
       "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors",
       "strength_model": 1.0,
       "model": [
-        "240",
+        "1003",
         0
       ]
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
       "title": "LOW Lora 4"
-    }
-  },
-  "242": {
-    "inputs": {
-      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
-      "strength_model": 0,
-      "model": [
-        "241",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "LOW Lora 5"
-    }
-  },
-  "243": {
-    "inputs": {
-      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
-      "strength_model": 0,
-      "model": [
-        "242",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "LOW Lora 6"
-    }
-  },
-  "244": {
-    "inputs": {
-      "lora_name": "lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors",
-      "strength_model": 0,
-      "model": [
-        "243",
-        0
-      ]
-    },
-    "class_type": "LoraLoaderModelOnly",
-    "_meta": {
-      "title": "LOW Lora 7"
     }
   }
 }
