@@ -60,7 +60,7 @@
     "inputs": {
       "shift": 5.000000000000001,
       "model": [
-        "1002",
+        "2004",
         0
       ]
     },
@@ -266,7 +266,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1004",
+        "2008",
         0
       ],
       "positive": [
@@ -309,7 +309,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1002",
+        "2004",
         0
       ],
       "positive": [
@@ -481,7 +481,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1004",
+        "2008",
         0
       ],
       "positive": [
@@ -524,7 +524,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1002",
+        "2004",
         0
       ],
       "positive": [
@@ -677,7 +677,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1004",
+        "2008",
         0
       ],
       "positive": [
@@ -720,7 +720,7 @@
       "start_percent": 0,
       "end_percent": 1,
       "model": [
-        "1002",
+        "2004",
         0
       ],
       "positive": [
@@ -812,7 +812,7 @@
       "title": "Image Batch Extend With Overlap"
     }
   },
-  "1001": {
+  "2001": {
     "inputs": {
       "lora_name": "wan-m4crom4sti4-i2v-106epo-k3nk.safetensors",
       "strength_model": 1.0,
@@ -823,15 +823,29 @@
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "HIGH Lora 4"
+      "title": "HIGH Lora 3"
     }
   },
-  "1002": {
+  "2002": {
     "inputs": {
       "lora_name": "NSFW-22-H-e8.safetensors",
       "strength_model": 1.0,
       "model": [
-        "1001",
+        "2001",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 4"
+    }
+  },
+  "2003": {
+    "inputs": {
+      "lora_name": "mql_doggy_a_t2v_v2_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "2002",
         0
       ]
     },
@@ -840,9 +854,23 @@
       "title": "HIGH Lora 5"
     }
   },
-  "1003": {
+  "2004": {
     "inputs": {
-      "lora_name": "mql_doggy_a_t2v_v2_low_noise.safetensors",
+      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "2003",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "HIGH Lora 6"
+    }
+  },
+  "2005": {
+    "inputs": {
+      "lora_name": "wan-m4crom4sti4-i2v-106epo-k3nk.safetensors",
       "strength_model": 1.0,
       "model": [
         "142",
@@ -854,18 +882,46 @@
       "title": "LOW Lora 3"
     }
   },
-  "1004": {
+  "2006": {
     "inputs": {
-      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors",
+      "lora_name": "NSFW-22-H-e8.safetensors",
       "strength_model": 1.0,
       "model": [
-        "1003",
+        "2005",
         0
       ]
     },
     "class_type": "LoraLoaderModelOnly",
     "_meta": {
       "title": "LOW Lora 4"
+    }
+  },
+  "2007": {
+    "inputs": {
+      "lora_name": "mql_doggy_a_t2v_v2_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "2006",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LOW Lora 5"
+    }
+  },
+  "2008": {
+    "inputs": {
+      "lora_name": "Pornmaster_wan 2.2_14b_I2V_bukkake_v1.4_low_noise.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "2007",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LOW Lora 6"
     }
   }
 }
