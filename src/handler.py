@@ -20,6 +20,8 @@ SUPABASE_BUCKET = os.environ.get("SUPABASE_BUCKET", "videos")
 
 
 
+
+
 DEFAULT_WORKFLOW_PATH = "/workflow.json"
 
 COMFY_OUTPUT_DIRS = [
@@ -225,17 +227,75 @@ def workflow_has_output_node(workflow):
 
 
 def extract_last_frame(video_path: str, output_path: str):
-    cmd = ["ffmpeg", "-y", "-sseof", "-3", "-i", video_path,
-           "-vframes", "1", "-q:v", "1", output_path]
+    # -sseof -1 seeks to ~1s before EOF (small margin, safely before the end).
+    # -update 1 tells the image2 muxer to keep overwriting output_path with
+    # each decoded frame instead of grabbing just the first one after the
+    # seek (which is what "-vframes 1" alone was doing — that was the bug,
+    # since the first frame after a seek is NOT guaranteed to be the last
+    # frame in the file). Letting it decode to true EOF means the final
+    # write is always the actual last frame, regardless of seek imprecision.
+    cmd = ["ffmpeg", "-y", "-sseof", "-1", "-i", video_path,
+           "-update", "1", "-q:v", "1", output_path]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(f"FFmpeg frame extract failed: {result.stderr}")
     return output_path
 
 
+# ===========================================================================
+# LORA STRENGTH OVERRIDE
+#
+# Lets a job request adjust LoRA strengths at submission time instead of
+# hand-editing workflow.json every time you want to test 1.0 vs 0.6 etc.
+#
+# payload["lora_strength"]:
+#     float  -> applies to every LoraLoaderModelOnly node in the workflow
+#               e.g. "lora_strength": 0.6  sets ALL loras to 0.6
+#
+# payload["lora_strengths"]:
+#     dict keyed by node title OR node id -> per-lora override
+#     e.g. "lora_strengths": {"HIGH Lora 5": 0.6, "2007": 0.4}
+#     Titles are matched case-insensitively. Per-node overrides take
+#     priority over the global "lora_strength" value if both are given.
+# ===========================================================================
+
+def apply_lora_strengths(wf, global_strength=None, per_lora=None):
+    per_lora = per_lora or {}
+    # normalize per_lora keys for case-insensitive title matching
+    per_lora_titles = {k.lower(): v for k, v in per_lora.items() if not k.isdigit()}
+    per_lora_ids    = {k: v for k, v in per_lora.items() if k.isdigit()}
+
+    applied = []
+    for node_id, node in wf.items():
+        if not isinstance(node, dict) or node.get("class_type") != "LoraLoaderModelOnly":
+            continue
+        title = node.get("_meta", {}).get("title", "")
+        old_strength = node["inputs"].get("strength_model")
+
+        new_strength = None
+        if node_id in per_lora_ids:
+            new_strength = per_lora_ids[node_id]
+        elif title.lower() in per_lora_titles:
+            new_strength = per_lora_titles[title.lower()]
+        elif global_strength is not None:
+            new_strength = global_strength
+
+        if new_strength is not None:
+            node["inputs"]["strength_model"] = float(new_strength)
+            applied.append((node_id, title, old_strength, new_strength))
+
+    if applied:
+        print(f"[lora_strength] Applied {len(applied)} override(s):")
+        for node_id, title, old, new in applied:
+            print(f"  - node {node_id} ({title}): {old} -> {new}")
+
+    return wf
+
+
 def build_batch_workflow(base_workflow, scene_prompts, negative_text,
                          frames_per_scene, sampling_steps,
-                         uploaded_filename, fps, batch_start_idx):
+                         uploaded_filename, fps, batch_start_idx,
+                         lora_strength=None, lora_strengths=None):
     """
     ImageBatchExtendWithOverlap output slots:
       slot 0 = source images only
@@ -244,6 +304,11 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
     """
     wf = copy.deepcopy(base_workflow)
     n  = len(scene_prompts)
+
+    # LoRA strength override, applied first so it's carried through the
+    # rest of this batch's graph unchanged.
+    if lora_strength is not None or lora_strengths:
+        apply_lora_strengths(wf, global_strength=lora_strength, per_lora=lora_strengths)
 
     # Patch LoadImage
     if uploaded_filename:
@@ -269,7 +334,6 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
     wf["193:215"]["inputs"]["motion_latent_count"] = 0
 
     if n == 1:
-        # Scene 1 only — VHS gets VAEDecode output directly
         wf["204"]["inputs"]["images"] = ["193:217", 0]
         wf["204"]["inputs"]["frame_rate"] = fps
         to_remove = [k for k in wf if k.startswith("181:") or k.startswith("203:")]
@@ -277,7 +341,6 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
             del wf[k]
 
     elif n == 2:
-        # Scene 1 + Scene 2 chained
         wf["181:152"]["inputs"]["text"] = scene_prompts[1]
         wf["181:206"]["inputs"]["text"] = negative_text
         wf["181:160"]["inputs"]["length"] = frames_per_scene
@@ -285,7 +348,6 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
         wf["181:160"]["inputs"]["prev_samples"]  = ["193:216", 0]
         wf["181:168"]["inputs"]["source_images"] = ["193:217", 0]
         wf["181:168"]["inputs"]["new_images"]    = ["181:162", 0]
-        # SLOT 2 = combined scene1+scene2 frames
         wf["204"]["inputs"]["images"] = ["181:168", 2]
         wf["204"]["inputs"]["frame_rate"] = fps
         to_remove = [k for k in wf if k.startswith("203:")]
@@ -293,7 +355,6 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
             del wf[k]
 
     else:
-        # All 3 scenes chained
         wf["181:152"]["inputs"]["text"] = scene_prompts[1]
         wf["181:206"]["inputs"]["text"] = negative_text
         wf["181:160"]["inputs"]["length"] = frames_per_scene
@@ -307,10 +368,8 @@ def build_batch_workflow(base_workflow, scene_prompts, negative_text,
         wf["203:219"]["inputs"]["length"] = frames_per_scene
         wf["203:219"]["inputs"]["motion_latent_count"] = 1
         wf["203:219"]["inputs"]["prev_samples"]  = ["181:208", 0]
-        # SLOT 2 = combined output from 181:168 (scene1+scene2)
         wf["203:227"]["inputs"]["source_images"] = ["181:168", 2]
         wf["203:227"]["inputs"]["new_images"]    = ["203:218", 0]
-        # SLOT 2 = combined scene1+scene2+scene3 frames
         wf["204"]["inputs"]["images"] = ["203:227", 2]
         wf["204"]["inputs"]["frame_rate"] = fps
 
@@ -371,6 +430,10 @@ def handler(job):
     fps              = int(payload.get("fps", DEFAULT_FPS))
     num_scenes       = max(1, int(payload.get("num_scenes", 3)))
 
+    # LoRA strength override from the job payload
+    lora_strength  = payload.get("lora_strength")     # float, applies to all loras
+    lora_strengths = payload.get("lora_strengths")     # dict, per-lora override
+
     job_id      = job.get("id", f"job_{int(time.time())}")
     output_dir  = find_output_dir()
     chunk_urls  = []
@@ -380,6 +443,10 @@ def handler(job):
     expected_secs = total_frames / fps
     print(f"[handler] {num_scenes} scenes x {frames_per_scene} frames @ {fps}fps "
           f"= {total_frames} frames = {expected_secs:.0f}s ({expected_secs/60:.1f} min)")
+    if lora_strength is not None:
+        print(f"[handler] Global lora_strength override: {lora_strength}")
+    if lora_strengths:
+        print(f"[handler] Per-lora strength overrides: {lora_strengths}")
 
     scene_idx = 0
     batch_num = 0
@@ -404,6 +471,8 @@ def handler(job):
             uploaded_filename=uploaded_filename,
             fps=fps,
             batch_start_idx=scene_idx,
+            lora_strength=lora_strength,
+            lora_strengths=lora_strengths,
         )
 
         result    = submit_prompt(wf, f"runpod_b{batch_num}")
@@ -423,7 +492,6 @@ def handler(job):
         chunk_paths.append(chunk_path)
         print(f"[handler] Batch {batch_num} done -> {chunk_url}")
 
-        # Extract last frame for next batch continuity
         if scene_idx + batch_size < num_scenes:
             last_frame_path = os.path.join(output_dir, f"last_frame_b{batch_num}.png")
             try:
@@ -438,7 +506,6 @@ def handler(job):
 
         scene_idx += batch_size
 
-    # Stitch all batch chunks
     if len(chunk_paths) == 1:
         final_local    = chunk_paths[0]
         final_filename = os.path.basename(final_local)
